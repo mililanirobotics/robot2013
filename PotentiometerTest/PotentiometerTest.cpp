@@ -12,7 +12,7 @@ class RobotDemo : public SimpleRobot {
 	AnalogChannel potentiometer;
 public:
 	RobotDemo(void) :
-		potentiometer(1)
+		potentiometer(1,1)
 	{
 	}
 
