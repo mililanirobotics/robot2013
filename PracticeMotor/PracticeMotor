@@ -1,0 +1,119 @@
+myRobot.Motor (1,0);
+
+
+
+#include <WPILib.h>
+{
+	Joystick leftstick;
+	Joystick rightstick;
+	Jaguar jagtop
+	Jaguar jagbottom
+
+	{
+		myRobot.SetSafetyEnabled(false);
+	}
+
+	{
+	
+		myRobot.SetExpiration(0.1);
+
+	if (leftstick.GetRawButton(1))
+	{
+		jagtop.Set(.1,0);
+	}
+
+	else if (leftstick.GetRawButton(2))
+	{
+		jagtop.Set(.2,0);
+	}
+
+	else if (leftstick.GetRawButton(3))
+	{
+		jagtop.Set(.3,0);
+	}
+
+	else if (leftsick.GetRawButton(4))
+	{
+		jagtop.Set(.4,0);
+	}
+
+	else if (leftstick.GetRawButton(5))
+	{
+		jagtop.Set(.5,0);
+	}
+
+	else if (leftstick.GetRawButton(6))
+	{
+		jagtop.Set(.6,0);
+	}
+
+	else of (leftstick.GetRawButton(7))
+	{
+		jagtop.Set(.7,0);
+	}
+
+	else if (leftstick.GetRawButton(8))
+	{
+		jagtop.Set(.8,0);
+	}
+
+	else if (leftstick.GetRawButton(9))
+	{
+		jagtop.Set(.9,0);
+	}
+
+	else if (leftstick.GetRawButton(10))
+	{
+		jagtop.Set(1,0);
+	}
+
+
+	if (rightstick.GetRawButton(1))
+	{
+		jagbottom.Set(.1,0);
+	}
+
+	else if (rightstick.GetRawButton(2))
+	{
+		jagbottom.Set(.2,0);
+	}
+
+	else if (rightstick.GetRawButton(3))
+	{
+		jagbottom.Set(.3,0);
+	}
+	
+	else if (rightstick.GetRawButton(4))
+	{
+		jagbottom.Set(.4,0);
+	}
+
+	else if (rightstick.GetRawButton(5))
+	{
+		jagbottom.Set(.5,0);
+	}
+
+	else if (rightstick.GetRawButton(6))
+	{
+		jagbottom.Set(.6,0);
+	}
+
+	else if (rightstick.GetRawButton(7))
+	{
+		jagbottom.Set(.7,0);
+	}
+
+	else if (rightstick.GetRawButton(8))
+	{
+		jagbottom.Set(.8,0);
+	}
+
+	else if (rightstick.GetRawButton(9))
+	{
+		jagbottom.Set(.9,0);
+	}
+
+	else if (rightstick.GetRawButton(10))
+	{
+		jagbottom.Set(1,0);
+	}
