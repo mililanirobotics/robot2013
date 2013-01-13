@@ -21,7 +21,7 @@ public:
 		DriverStationLCD *screen = DriverStationLCD::GetInstance();
 		while (IsOperatorControl())
 		{
-			screen->PrintfLine(DriverStationLCD::kUser_Line1,"Voltage %f", 3*potentiometer.GetVoltage());
+			screen->PrintfLine(DriverStationLCD::kUser_Line1,"Angle %f", (1/54)*potentiometer.GetVoltage());
 			screen->UpdateLCD();
 			Wait(0.1);
 		}
