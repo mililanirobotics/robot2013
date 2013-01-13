@@ -31,7 +31,7 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
-PRJ_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013/DriverStationLCDText
+PRJ_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013/PotentiometerTest
 WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013
 
 
@@ -113,11 +113,11 @@ PotentiometerTest/$(MODE_DIR)/% : LIBPATH =
 PotentiometerTest/$(MODE_DIR)/% : LIBS = 
 PotentiometerTest/$(MODE_DIR)/% : OBJ_DIR := PotentiometerTest/$(MODE_DIR)
 
-PotentiometerTest/$(MODE_DIR)/Objects/DriverStationLCDText/PotentiometerTest.o : C:/Users/mhsrobotics/Desktop/Robot\ 2013/DriverStationLCDText/PotentiometerTest.cpp
+PotentiometerTest/$(MODE_DIR)/Objects/PotentiometerTest/PotentiometerTest.o : C:/Users/mhsrobotics/Desktop/Robot\ 2013/PotentiometerTest/PotentiometerTest.cpp
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-OBJECTS_PotentiometerTest = PotentiometerTest/$(MODE_DIR)/Objects/DriverStationLCDText/PotentiometerTest.o
+OBJECTS_PotentiometerTest = PotentiometerTest/$(MODE_DIR)/Objects/PotentiometerTest/PotentiometerTest.o
 
 PotentiometerTest/$(MODE_DIR)/PotentiometerTest.out : $(OBJECTS_PotentiometerTest)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@";rm -f "$@";nmppc $(OBJECTS_PotentiometerTest) $(IDE_LIBRARIES) | tclsh $(WIND_BASE)/host/resource/hutils/tcl/munch.tcl -c ppc > $(OBJ_DIR)/ctdt.c; $(TOOL_PATH)ccppc $(DEBUGFLAGS_Linker) $(CC_ARCH_SPEC) -fdollars-in-identifiers -Wall $(ADDED_CFLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES)  -o $(OBJ_DIR)/ctdt.o -c $(OBJ_DIR)/ctdt.c; $(TOOL_PATH)ccppc -r -nostdlib -Wl,-X -T $(WIND_BASE)/target/h/tool/gnu/ldscripts/link.OUT -o "$@" $(OBJ_DIR)/ctdt.o $(OBJECTS_PotentiometerTest) $(IDE_LIBRARIES) $(LIBPATH) $(LIBS)  $(ADDED_LIBPATH) $(ADDED_LIBS) && if [ "$(EXPAND_DBG)" = "1" ]; then plink "$@";fi
@@ -129,7 +129,7 @@ _clean :: PotentiometerTest/$(MODE_DIR)/PotentiometerTest_clean
 PotentiometerTest/$(MODE_DIR)/PotentiometerTest_clean : 
 	$(TRACE_FLAG)if [ -d "PotentiometerTest" ]; then cd "PotentiometerTest"; rm -rf $(MODE_DIR); fi
 
-DEP_FILES := PotentiometerTest/$(MODE_DIR)/Objects/DriverStationLCDText/PotentiometerTest.d
+DEP_FILES := PotentiometerTest/$(MODE_DIR)/Objects/PotentiometerTest/PotentiometerTest.d
 -include $(DEP_FILES)
 
 
