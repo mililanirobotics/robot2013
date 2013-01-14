@@ -1,7 +1,7 @@
 #include "WPILib.h"
 
 /**
- *  Test code for jagual motors.
+ *  Test code for jaguar motors.
  *  Uses joystick 1's throttle to control speed, and button 1 to toggle motor.
  */
 class RobotDemo: public SimpleRobot { // driver station object for getting selections
