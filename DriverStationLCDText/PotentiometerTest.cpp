@@ -12,20 +12,18 @@ class RobotDemo : public SimpleRobot {
 	AnalogChannel potentiometer;
 public:
 	RobotDemo(void) :
-		potentiometer(1,1)
-	{
+		potentiometer(1, 1) {
 	}
 
-	void OperatorControl(void)
-	{
+	void OperatorControl(void) {
 		DriverStationLCD *screen = DriverStationLCD::GetInstance();
-		while (IsOperatorControl())
-		{
-			screen->PrintfLine(DriverStationLCD::kUser_Line1,"Angle %f", (1/54)*potentiometer.GetVoltage());
+		while (true) {
+			screen->PrintfLine(DriverStationLCD::kUser_Line1, "Angle %f", potentiometer.GetVoltage());
 			screen->UpdateLCD();
-			Wait(0.1);
 		}
 
 	}
 };
-START_ROBOT_CLASS(RobotDemo);
+START_ROBOT_CLASS(RobotDemo)
+;
+

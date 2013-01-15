@@ -31,8 +31,8 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
-WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013
-PRJ_ROOT_DIR := $(WS_ROOT_DIR)/PotentiometerTest
+PRJ_ROOT_DIR := C:/Users/mhsrobotics/Desktop/robot2013/PotentiometerTest
+WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/robot2013
 
 
 
@@ -55,8 +55,6 @@ LIBS =
 IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
 
 IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
-
-IDE_DEFINES = 
 
 
 
@@ -102,7 +100,6 @@ PotentiometerTest/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -O2 -fstrength-reduce -
 endif
 PotentiometerTest/$(MODE_DIR)/% : IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
 PotentiometerTest/$(MODE_DIR)/% : IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
-PotentiometerTest/$(MODE_DIR)/% : IDE_DEFINES = 
 PotentiometerTest/$(MODE_DIR)/% : PROJECT_TYPE = DKM
 PotentiometerTest/$(MODE_DIR)/% : DEFINES = 
 PotentiometerTest/$(MODE_DIR)/% : EXPAND_DBG = 0
@@ -116,7 +113,7 @@ PotentiometerTest/$(MODE_DIR)/% : LIBPATH =
 PotentiometerTest/$(MODE_DIR)/% : LIBS = 
 PotentiometerTest/$(MODE_DIR)/% : OBJ_DIR := PotentiometerTest/$(MODE_DIR)
 
-PotentiometerTest/$(MODE_DIR)/Objects/PotentiometerTest/PotentiometerTest.o : $(PRJ_ROOT_DIR)/PotentiometerTest.cpp $(FORCE_FILE_BUILD)
+PotentiometerTest/$(MODE_DIR)/Objects/PotentiometerTest/PotentiometerTest.o : C:/Users/mhsrobotics/Desktop/robot2013/PotentiometerTest/PotentiometerTest.cpp
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
@@ -131,8 +128,6 @@ _clean :: PotentiometerTest/$(MODE_DIR)/PotentiometerTest_clean
 
 PotentiometerTest/$(MODE_DIR)/PotentiometerTest_clean : 
 	$(TRACE_FLAG)if [ -d "PotentiometerTest" ]; then cd "PotentiometerTest"; rm -rf $(MODE_DIR); fi
-
-force : 
 
 DEP_FILES := PotentiometerTest/$(MODE_DIR)/Objects/PotentiometerTest/PotentiometerTest.d
 -include $(DEP_FILES)
