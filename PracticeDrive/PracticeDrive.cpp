@@ -8,24 +8,21 @@
  */ 
 class RobotDemo : public SimpleRobot
 {
-	RobotDrive rightdrive;
-	RobotDrive leftdrive;// robot drive system
-	Joystick stick; // must be a logitech controller, otherwise this will be difficult for the driver
-
+	RobotDrive drive;
+	Joystick leftStick, rightStick;
+	
 public:
 	RobotDemo(void):
-		rightdrive(1,2),
-		leftdrive(3,4),
-		stick(1)
+		drive(4,3,2,1),
+		leftStick(1),
+		rightStick(2)
 	{
-		rightdrive.SetExpiration(0.1);
-		leftdrive.SetExpiration(0.1);
+		
 	}
 
 	void Autonomous(void)
 	{
-		rightdrive.SetSafetyEnabled(false);
-		leftdrive.SetSafetyEnabled(false);
+		
 	}
 
 	/**
@@ -33,13 +30,9 @@ public:
 	 */
 	void OperatorControl(void)
 	{
-		rightdrive.SetSafetyEnabled(true);
-		leftdrive.SetSafetyEnabled(true);
 		while (IsOperatorControl())
 		{
-			rightdrive.TankDrive(-stick.GetY(),stick.GetY());
-			leftdrive.TankDrive(stick.GetTwist(),-stick.GetTwist());
-			
+			drive.TankDrive(leftStick, rightStick);
 		}
 	}
 };
