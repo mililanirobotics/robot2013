@@ -32,11 +32,14 @@ public:
 	void OperatorControl(void)
 	{
 		int encodervalue;
+		int encoderdegree;
 		DriverStationLCD *screen = DriverStationLCD::GetInstance();
 		while (IsOperatorControl())
 		{
 			encodervalue=encoder.GetValue();
-			screen->PrintfLine(DriverStationLCD::kUser_Line1,"Value %d", encodervalue);
+			encoderdegree=encodervalue*0.36;
+			screen->PrintfLine(DriverStationLCD::kUser_Line1,"Degree %d", encoderdegree);
+			screen->PrintfLine(DriverStationLCD::kUser_Line2,"Value %d", encodervalue);
 			screen->UpdateLCD();
 			Wait(0.005);				// wait for a motor update time
 		}
@@ -51,5 +54,3 @@ public:
 };
 
 START_ROBOT_CLASS(RobotDemo);
-
-

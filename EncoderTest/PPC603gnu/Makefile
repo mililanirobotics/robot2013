@@ -31,8 +31,8 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
-PRJ_ROOT_DIR := C:/Users/mhsrobotics/Desktop/robot2013/EncoderTest
 WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/robot2013
+PRJ_ROOT_DIR := $(WS_ROOT_DIR)/EncoderTest
 
 
 
@@ -56,6 +56,8 @@ IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_B
 
 IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
 
+IDE_DEFINES = 
+
 
 
 #BuildTool flags
@@ -77,10 +79,64 @@ endif
 
 
 #Project Targets
-PROJECT_TARGETS =
+PROJECT_TARGETS = EncoderTest/$(MODE_DIR)/EncoderTest.out
 
 
 #Rules
+
+# EncoderTest
+ifeq ($(DEBUG_MODE),1)
+EncoderTest/$(MODE_DIR)/% : DEBUGFLAGS_C-Compiler = -g
+EncoderTest/$(MODE_DIR)/% : DEBUGFLAGS_C++-Compiler = -g
+EncoderTest/$(MODE_DIR)/% : DEBUGFLAGS_Linker = -g
+EncoderTest/$(MODE_DIR)/% : DEBUGFLAGS_Partial-Image-Linker = 
+EncoderTest/$(MODE_DIR)/% : DEBUGFLAGS_Librarian = 
+EncoderTest/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -g
+else
+EncoderTest/$(MODE_DIR)/% : DEBUGFLAGS_C-Compiler = -O2 -fstrength-reduce -fno-builtin
+EncoderTest/$(MODE_DIR)/% : DEBUGFLAGS_C++-Compiler = -O2 -fstrength-reduce -fno-builtin
+EncoderTest/$(MODE_DIR)/% : DEBUGFLAGS_Linker = -O2 -fstrength-reduce -fno-builtin
+EncoderTest/$(MODE_DIR)/% : DEBUGFLAGS_Partial-Image-Linker = 
+EncoderTest/$(MODE_DIR)/% : DEBUGFLAGS_Librarian = 
+EncoderTest/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -O2 -fstrength-reduce -fno-builtin
+endif
+EncoderTest/$(MODE_DIR)/% : IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
+EncoderTest/$(MODE_DIR)/% : IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
+EncoderTest/$(MODE_DIR)/% : IDE_DEFINES = 
+EncoderTest/$(MODE_DIR)/% : PROJECT_TYPE = DKM
+EncoderTest/$(MODE_DIR)/% : DEFINES = 
+EncoderTest/$(MODE_DIR)/% : EXPAND_DBG = 0
+EncoderTest/$(MODE_DIR)/% : VX_CPU_FAMILY = ppc
+EncoderTest/$(MODE_DIR)/% : CPU = PPC603
+EncoderTest/$(MODE_DIR)/% : TOOL_FAMILY = gnu
+EncoderTest/$(MODE_DIR)/% : TOOL = gnu
+EncoderTest/$(MODE_DIR)/% : TOOL_PATH = 
+EncoderTest/$(MODE_DIR)/% : CC_ARCH_SPEC = -mcpu=603 -mstrict-align -mno-implicit-fp -mlongcall
+EncoderTest/$(MODE_DIR)/% : LIBPATH = 
+EncoderTest/$(MODE_DIR)/% : LIBS = 
+EncoderTest/$(MODE_DIR)/% : OBJ_DIR := EncoderTest/$(MODE_DIR)
+
+EncoderTest/$(MODE_DIR)/Objects/EncoderTest/EncoderTest.o : $(PRJ_ROOT_DIR)/EncoderTest.cpp $(FORCE_FILE_BUILD)
+	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
+
+
+OBJECTS_EncoderTest = EncoderTest/$(MODE_DIR)/Objects/EncoderTest/EncoderTest.o
+
+EncoderTest/$(MODE_DIR)/EncoderTest.out : $(OBJECTS_EncoderTest)
+	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@";rm -f "$@";nmppc $(OBJECTS_EncoderTest) $(IDE_LIBRARIES) | tclsh $(WIND_BASE)/host/resource/hutils/tcl/munch.tcl -c ppc > $(OBJ_DIR)/ctdt.c; $(TOOL_PATH)ccppc $(DEBUGFLAGS_Linker) $(CC_ARCH_SPEC) -fdollars-in-identifiers -Wall $(ADDED_CFLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES)  -o $(OBJ_DIR)/ctdt.o -c $(OBJ_DIR)/ctdt.c; $(TOOL_PATH)ccppc -r -nostdlib -Wl,-X -T $(WIND_BASE)/target/h/tool/gnu/ldscripts/link.OUT -o "$@" $(OBJ_DIR)/ctdt.o $(OBJECTS_EncoderTest) $(IDE_LIBRARIES) $(LIBPATH) $(LIBS)  $(ADDED_LIBPATH) $(ADDED_LIBS) && if [ "$(EXPAND_DBG)" = "1" ]; then plink "$@";fi
+
+EncoderTest/$(MODE_DIR)/EncoderTest_compile_file : $(FILE) ;
+
+_clean :: EncoderTest/$(MODE_DIR)/EncoderTest_clean
+
+EncoderTest/$(MODE_DIR)/EncoderTest_clean : 
+	$(TRACE_FLAG)if [ -d "EncoderTest" ]; then cd "EncoderTest"; rm -rf $(MODE_DIR); fi
+
+force : 
+
+DEP_FILES := EncoderTest/$(MODE_DIR)/Objects/EncoderTest/EncoderTest.d
+-include $(DEP_FILES)
+
 
 
 -include $(PRJ_ROOT_DIR)/*.makefile
