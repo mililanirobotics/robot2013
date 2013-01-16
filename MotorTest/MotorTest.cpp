@@ -6,7 +6,6 @@
  */
 class RobotDemo: public SimpleRobot { // driver station object for getting selections
 	Joystick leftstick;
-	//ervo servo;
 	Jaguar shooter1;
 	Jaguar shooter2;
 

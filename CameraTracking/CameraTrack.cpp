@@ -21,7 +21,7 @@ class RobotDemo : public SimpleRobot
 		float widthtarget = 2 ;
 		float yresolution = 360;
 		float distance = widthtarget*yresolution/heightpixel/tan(fov*3.14159265/180);
-		
+
 		return (distance);
 	}
 public:
@@ -38,7 +38,7 @@ public:
 		myRobot.SetSafetyEnabled(false);
 		AxisCamera &camera = AxisCamera::GetInstance("10.28.53.11");
 		camera.WriteResolution(AxisCamera::kResolution_320x240);
-		camera.WriteRotation(AxisCamera::kRotation_180);
+		camera.WriteRotation(AxisCamera::kRotation_180);//Flip image upside-down.
 		camera.WriteCompression(80);//Compresses the image(?)
 		camera.WriteBrightness(50);//Sets the brightness to 80 on a scale from 0-100
 		DriverStationLCD *screen = DriverStationLCD::GetInstance();
@@ -46,7 +46,7 @@ public:
 		while(IsOperatorControl())
 		{
 			screen->UpdateLCD();
-			count++;		
+			count++;
 			HSLImage* imgpointer;
 			imgpointer = camera.GetImage();
 			//imaqCreateImage(IMAQ_IMAGE_U8,) 

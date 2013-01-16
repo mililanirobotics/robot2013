@@ -31,8 +31,8 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
-WS_ROOT_DIR := C:/WindRiver/workspace
-PRJ_ROOT_DIR := $(WS_ROOT_DIR)/LineTrackerSample
+WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013
+PRJ_ROOT_DIR := $(WS_ROOT_DIR)/MotorTest
 
 
 
@@ -79,108 +79,62 @@ endif
 
 
 #Project Targets
-PROJECT_TARGETS = SimpleTemplate/$(MODE_DIR)/SimpleTemplate.out \
-	 SimpleTemplate_partialImage/$(MODE_DIR)/SimpleTemplate_partialImage.o
+PROJECT_TARGETS = MotorTest/$(MODE_DIR)/MotorTest.out
 
 
 #Rules
 
-# SimpleTemplate
+# MotorTest
 ifeq ($(DEBUG_MODE),1)
-SimpleTemplate/$(MODE_DIR)/% : DEBUGFLAGS_C-Compiler = -g
-SimpleTemplate/$(MODE_DIR)/% : DEBUGFLAGS_C++-Compiler = -g
-SimpleTemplate/$(MODE_DIR)/% : DEBUGFLAGS_Linker = -g
-SimpleTemplate/$(MODE_DIR)/% : DEBUGFLAGS_Partial-Image-Linker = 
-SimpleTemplate/$(MODE_DIR)/% : DEBUGFLAGS_Librarian = 
-SimpleTemplate/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -g
+MotorTest/$(MODE_DIR)/% : DEBUGFLAGS_C-Compiler = -g
+MotorTest/$(MODE_DIR)/% : DEBUGFLAGS_C++-Compiler = -g
+MotorTest/$(MODE_DIR)/% : DEBUGFLAGS_Linker = -g
+MotorTest/$(MODE_DIR)/% : DEBUGFLAGS_Partial-Image-Linker = 
+MotorTest/$(MODE_DIR)/% : DEBUGFLAGS_Librarian = 
+MotorTest/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -g
 else
-SimpleTemplate/$(MODE_DIR)/% : DEBUGFLAGS_C-Compiler = -O2 -fstrength-reduce -fno-builtin
-SimpleTemplate/$(MODE_DIR)/% : DEBUGFLAGS_C++-Compiler = -O2 -fstrength-reduce -fno-builtin
-SimpleTemplate/$(MODE_DIR)/% : DEBUGFLAGS_Linker = -O2 -fstrength-reduce -fno-builtin
-SimpleTemplate/$(MODE_DIR)/% : DEBUGFLAGS_Partial-Image-Linker = 
-SimpleTemplate/$(MODE_DIR)/% : DEBUGFLAGS_Librarian = 
-SimpleTemplate/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -O2 -fstrength-reduce -fno-builtin
+MotorTest/$(MODE_DIR)/% : DEBUGFLAGS_C-Compiler = -O2 -fstrength-reduce -fno-builtin
+MotorTest/$(MODE_DIR)/% : DEBUGFLAGS_C++-Compiler = -O2 -fstrength-reduce -fno-builtin
+MotorTest/$(MODE_DIR)/% : DEBUGFLAGS_Linker = -O2 -fstrength-reduce -fno-builtin
+MotorTest/$(MODE_DIR)/% : DEBUGFLAGS_Partial-Image-Linker = 
+MotorTest/$(MODE_DIR)/% : DEBUGFLAGS_Librarian = 
+MotorTest/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -O2 -fstrength-reduce -fno-builtin
 endif
-SimpleTemplate/$(MODE_DIR)/% : IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
-SimpleTemplate/$(MODE_DIR)/% : IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
-SimpleTemplate/$(MODE_DIR)/% : IDE_DEFINES = 
-SimpleTemplate/$(MODE_DIR)/% : PROJECT_TYPE = DKM
-SimpleTemplate/$(MODE_DIR)/% : DEFINES = 
-SimpleTemplate/$(MODE_DIR)/% : EXPAND_DBG = 0
-SimpleTemplate/$(MODE_DIR)/% : VX_CPU_FAMILY = ppc
-SimpleTemplate/$(MODE_DIR)/% : CPU = PPC603
-SimpleTemplate/$(MODE_DIR)/% : TOOL_FAMILY = gnu
-SimpleTemplate/$(MODE_DIR)/% : TOOL = gnu
-SimpleTemplate/$(MODE_DIR)/% : TOOL_PATH = 
-SimpleTemplate/$(MODE_DIR)/% : CC_ARCH_SPEC = -mcpu=603 -mstrict-align -mno-implicit-fp -mlongcall
-SimpleTemplate/$(MODE_DIR)/% : LIBPATH = 
-SimpleTemplate/$(MODE_DIR)/% : LIBS = 
-SimpleTemplate/$(MODE_DIR)/% : OBJ_DIR := SimpleTemplate/$(MODE_DIR)
+MotorTest/$(MODE_DIR)/% : IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
+MotorTest/$(MODE_DIR)/% : IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
+MotorTest/$(MODE_DIR)/% : IDE_DEFINES = 
+MotorTest/$(MODE_DIR)/% : PROJECT_TYPE = DKM
+MotorTest/$(MODE_DIR)/% : DEFINES = 
+MotorTest/$(MODE_DIR)/% : EXPAND_DBG = 0
+MotorTest/$(MODE_DIR)/% : VX_CPU_FAMILY = ppc
+MotorTest/$(MODE_DIR)/% : CPU = PPC603
+MotorTest/$(MODE_DIR)/% : TOOL_FAMILY = gnu
+MotorTest/$(MODE_DIR)/% : TOOL = gnu
+MotorTest/$(MODE_DIR)/% : TOOL_PATH = 
+MotorTest/$(MODE_DIR)/% : CC_ARCH_SPEC = -mcpu=603 -mstrict-align -mno-implicit-fp -mlongcall
+MotorTest/$(MODE_DIR)/% : LIBPATH = 
+MotorTest/$(MODE_DIR)/% : LIBS = 
+MotorTest/$(MODE_DIR)/% : OBJ_DIR := MotorTest/$(MODE_DIR)
 
-OBJECTS_SimpleTemplate = SimpleTemplate_partialImage/$(MODE_DIR)/SimpleTemplate_partialImage.o
-
-SimpleTemplate/$(MODE_DIR)/SimpleTemplate.out : $(OBJECTS_SimpleTemplate)
-	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@";rm -f "$@";nmppc $(OBJECTS_SimpleTemplate) $(IDE_LIBRARIES) | tclsh $(WIND_BASE)/host/resource/hutils/tcl/munch.tcl -c ppc > $(OBJ_DIR)/ctdt.c; $(TOOL_PATH)ccppc $(DEBUGFLAGS_Linker) $(CC_ARCH_SPEC) -fdollars-in-identifiers -Wall $(ADDED_CFLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES)  -o $(OBJ_DIR)/ctdt.o -c $(OBJ_DIR)/ctdt.c; $(TOOL_PATH)ccppc -r -nostdlib -Wl,-X -T $(WIND_BASE)/target/h/tool/gnu/ldscripts/link.OUT -o "$@" $(OBJ_DIR)/ctdt.o $(OBJECTS_SimpleTemplate) $(IDE_LIBRARIES) $(LIBPATH) $(LIBS)  $(ADDED_LIBPATH) $(ADDED_LIBS) && if [ "$(EXPAND_DBG)" = "1" ]; then plink "$@";fi
-
-SimpleTemplate/$(MODE_DIR)/SimpleTemplate_compile_file : $(FILE) ;
-
-_clean :: SimpleTemplate/$(MODE_DIR)/SimpleTemplate_clean
-
-SimpleTemplate/$(MODE_DIR)/SimpleTemplate_clean : 
-	$(TRACE_FLAG)if [ -d "SimpleTemplate" ]; then cd "SimpleTemplate"; rm -rf $(MODE_DIR); fi
-
-
-# SimpleTemplate_partialImage
-ifeq ($(DEBUG_MODE),1)
-SimpleTemplate_partialImage/$(MODE_DIR)/% : DEBUGFLAGS_C-Compiler = -g
-SimpleTemplate_partialImage/$(MODE_DIR)/% : DEBUGFLAGS_C++-Compiler = -g
-SimpleTemplate_partialImage/$(MODE_DIR)/% : DEBUGFLAGS_Linker = -g
-SimpleTemplate_partialImage/$(MODE_DIR)/% : DEBUGFLAGS_Partial-Image-Linker = 
-SimpleTemplate_partialImage/$(MODE_DIR)/% : DEBUGFLAGS_Librarian = 
-SimpleTemplate_partialImage/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -g
-else
-SimpleTemplate_partialImage/$(MODE_DIR)/% : DEBUGFLAGS_C-Compiler = -O2 -fstrength-reduce -fno-builtin
-SimpleTemplate_partialImage/$(MODE_DIR)/% : DEBUGFLAGS_C++-Compiler = -O2 -fstrength-reduce -fno-builtin
-SimpleTemplate_partialImage/$(MODE_DIR)/% : DEBUGFLAGS_Linker = -O2 -fstrength-reduce -fno-builtin
-SimpleTemplate_partialImage/$(MODE_DIR)/% : DEBUGFLAGS_Partial-Image-Linker = 
-SimpleTemplate_partialImage/$(MODE_DIR)/% : DEBUGFLAGS_Librarian = 
-SimpleTemplate_partialImage/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -O2 -fstrength-reduce -fno-builtin
-endif
-SimpleTemplate_partialImage/$(MODE_DIR)/% : IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
-SimpleTemplate_partialImage/$(MODE_DIR)/% : IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
-SimpleTemplate_partialImage/$(MODE_DIR)/% : IDE_DEFINES = 
-SimpleTemplate_partialImage/$(MODE_DIR)/% : PROJECT_TYPE = DKM
-SimpleTemplate_partialImage/$(MODE_DIR)/% : DEFINES = 
-SimpleTemplate_partialImage/$(MODE_DIR)/% : EXPAND_DBG = 0
-SimpleTemplate_partialImage/$(MODE_DIR)/% : VX_CPU_FAMILY = ppc
-SimpleTemplate_partialImage/$(MODE_DIR)/% : CPU = PPC603
-SimpleTemplate_partialImage/$(MODE_DIR)/% : TOOL_FAMILY = gnu
-SimpleTemplate_partialImage/$(MODE_DIR)/% : TOOL = gnu
-SimpleTemplate_partialImage/$(MODE_DIR)/% : TOOL_PATH = 
-SimpleTemplate_partialImage/$(MODE_DIR)/% : CC_ARCH_SPEC = -mcpu=603 -mstrict-align -mno-implicit-fp -mlongcall
-SimpleTemplate_partialImage/$(MODE_DIR)/% : LIBPATH = 
-SimpleTemplate_partialImage/$(MODE_DIR)/% : LIBS = 
-SimpleTemplate_partialImage/$(MODE_DIR)/% : OBJ_DIR := SimpleTemplate_partialImage/$(MODE_DIR)
-
-SimpleTemplate_partialImage/$(MODE_DIR)/Objects/LineTrackerSample/MyRobot.o : $(PRJ_ROOT_DIR)/MyRobot.cpp $(FORCE_FILE_BUILD)
+MotorTest/$(MODE_DIR)/Objects/MotorTest/MotorTest.o : $(PRJ_ROOT_DIR)/MotorTest.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-OBJECTS_SimpleTemplate_partialImage = SimpleTemplate_partialImage/$(MODE_DIR)/Objects/LineTrackerSample/MyRobot.o
+OBJECTS_MotorTest = MotorTest/$(MODE_DIR)/Objects/MotorTest/MotorTest.o
 
-SimpleTemplate_partialImage/$(MODE_DIR)/SimpleTemplate_partialImage.o : $(OBJECTS_SimpleTemplate_partialImage)
-	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc -r -nostdlib -Wl,-X  -o "$@" $(OBJECTS_SimpleTemplate_partialImage) $(LIBPATH) $(LIBS) $(ADDED_LIBPATH) $(ADDED_LIBS)  && if [ "$(EXPAND_DBG)" = "1" ]; then plink "$@";fi
+MotorTest/$(MODE_DIR)/MotorTest.out : $(OBJECTS_MotorTest)
+	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@";rm -f "$@";nmppc $(OBJECTS_MotorTest) $(IDE_LIBRARIES) | tclsh $(WIND_BASE)/host/resource/hutils/tcl/munch.tcl -c ppc > $(OBJ_DIR)/ctdt.c; $(TOOL_PATH)ccppc $(DEBUGFLAGS_Linker) $(CC_ARCH_SPEC) -fdollars-in-identifiers -Wall $(ADDED_CFLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES)  -o $(OBJ_DIR)/ctdt.o -c $(OBJ_DIR)/ctdt.c; $(TOOL_PATH)ccppc -r -nostdlib -Wl,-X -T $(WIND_BASE)/target/h/tool/gnu/ldscripts/link.OUT -o "$@" $(OBJ_DIR)/ctdt.o $(OBJECTS_MotorTest) $(IDE_LIBRARIES) $(LIBPATH) $(LIBS)  $(ADDED_LIBPATH) $(ADDED_LIBS) && if [ "$(EXPAND_DBG)" = "1" ]; then plink "$@";fi
 
-SimpleTemplate_partialImage/$(MODE_DIR)/SimpleTemplate_partialImage_compile_file : $(FILE) ;
+MotorTest/$(MODE_DIR)/MotorTest_compile_file : $(FILE) ;
 
-_clean :: SimpleTemplate_partialImage/$(MODE_DIR)/SimpleTemplate_partialImage_clean
+_clean :: MotorTest/$(MODE_DIR)/MotorTest_clean
 
-SimpleTemplate_partialImage/$(MODE_DIR)/SimpleTemplate_partialImage_clean : 
-	$(TRACE_FLAG)if [ -d "SimpleTemplate_partialImage" ]; then cd "SimpleTemplate_partialImage"; rm -rf $(MODE_DIR); fi
+MotorTest/$(MODE_DIR)/MotorTest_clean : 
+	$(TRACE_FLAG)if [ -d "MotorTest" ]; then cd "MotorTest"; rm -rf $(MODE_DIR); fi
 
 force : 
 
-DEP_FILES := SimpleTemplate_partialImage/$(MODE_DIR)/Objects/LineTrackerSample/MyRobot.d
+DEP_FILES := MotorTest/$(MODE_DIR)/Objects/MotorTest/MotorTest.d
 -include $(DEP_FILES)
 
 
