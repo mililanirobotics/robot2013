@@ -31,8 +31,8 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
-PRJ_ROOT_DIR := C:/Users/mhsrobotics/Desktop/robot2013/PracticeDrive
-WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/robot2013
+WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013
+PRJ_ROOT_DIR := $(WS_ROOT_DIR)/PracticeDrive
 
 
 
@@ -55,6 +55,8 @@ LIBS =
 IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
 
 IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
+
+IDE_DEFINES = 
 
 
 
@@ -100,6 +102,7 @@ PracticeDrive/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -O2 -fstrength-reduce -fno-
 endif
 PracticeDrive/$(MODE_DIR)/% : IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
 PracticeDrive/$(MODE_DIR)/% : IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
+PracticeDrive/$(MODE_DIR)/% : IDE_DEFINES = 
 PracticeDrive/$(MODE_DIR)/% : PROJECT_TYPE = DKM
 PracticeDrive/$(MODE_DIR)/% : DEFINES = 
 PracticeDrive/$(MODE_DIR)/% : EXPAND_DBG = 0
@@ -113,7 +116,7 @@ PracticeDrive/$(MODE_DIR)/% : LIBPATH =
 PracticeDrive/$(MODE_DIR)/% : LIBS = 
 PracticeDrive/$(MODE_DIR)/% : OBJ_DIR := PracticeDrive/$(MODE_DIR)
 
-PracticeDrive/$(MODE_DIR)/Objects/PracticeDrive/PracticeDrive.o : C:/Users/mhsrobotics/Desktop/robot2013/PracticeDrive/PracticeDrive.cpp
+PracticeDrive/$(MODE_DIR)/Objects/PracticeDrive/PracticeDrive.o : $(PRJ_ROOT_DIR)/PracticeDrive.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
@@ -128,6 +131,8 @@ _clean :: PracticeDrive/$(MODE_DIR)/PracticeDrive_clean
 
 PracticeDrive/$(MODE_DIR)/PracticeDrive_clean : 
 	$(TRACE_FLAG)if [ -d "PracticeDrive" ]; then cd "PracticeDrive"; rm -rf $(MODE_DIR); fi
+
+force : 
 
 DEP_FILES := PracticeDrive/$(MODE_DIR)/Objects/PracticeDrive/PracticeDrive.d
 -include $(DEP_FILES)
