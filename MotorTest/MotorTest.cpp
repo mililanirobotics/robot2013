@@ -8,19 +8,24 @@ class RobotDemo: public SimpleRobot { // driver station object for getting selec
 	Joystick leftstick;
 	Jaguar shooter1;
 	Jaguar shooter2;
+	Victor turntable;
+//	AxisCamera cam;
 
 public:
 	RobotDemo(void) :
 		leftstick(1),
 		//servo(3),
-		shooter1(1),
-		shooter2 (2)
+		shooter1(4),
+		shooter2 (6),
+		turntable(10)
+	//	cam()
 	{
 
 	}
 	void OperatorControl() {
 		{
-
+		//	cam = AxisCamera::GetInstance("10.28.53.11");
+			
 			//			front.SetSafetyEnabled(false);
 			//			back.SetSafetyEnabled(false);
 			//			horizontal.Reset();
@@ -30,10 +35,9 @@ public:
 			//			double x, y;
 			//			int buttoncount = 0;
 			DriverStationLCD *screen = DriverStationLCD::GetInstance();
-
 			while (IsOperatorControl()) {
-				screen->PrintfLine(DriverStationLCD::kUser_Line1,
-						"Z input: %f", leftstick.GetThrottle());
+				screen->PrintfLine(DriverStationLCD::kUser_Line1,"Z input: %f", leftstick.GetThrottle());
+				screen->UpdateLCD();
 //				if (leftstick.GetRawButton(1)) {
 //					shooter1.Set(.10);
 //					//shooter2.Set(-0.5);
@@ -64,7 +68,23 @@ public:
 					shooter1.Set(0);
 					shooter2.Set(0);
 				}
-				screen->UpdateLCD();
+				if (leftstick.GetRawButton(4) == true){
+					turntable.Set(.4);
+				}
+				else if (!leftstick.GetRawButton(5)== true){
+					turntable.Set(0);
+				}
+				else{}
+				if (leftstick.GetRawButton(5) == true){
+					turntable.Set(-.4);
+				}
+				else if (!leftstick.GetRawButton(4)== true){
+					turntable.Set(0);
+				}
+				else{}
+				
+				
+			
 			}
 			// supply your own teleop code here
 		}
