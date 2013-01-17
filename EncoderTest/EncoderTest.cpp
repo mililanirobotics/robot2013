@@ -9,11 +9,12 @@
 class RobotDemo : public SimpleRobot
 {
 
-	AnalogChannel encoder;
+	Encoder encoder;
+	
 
 public:
 	RobotDemo(void):
-		encoder(1)
+		encoder(1, 1)
 	{
 		
 	}
@@ -31,18 +32,21 @@ public:
 	 */
 	void OperatorControl(void)
 	{
-		int encodervalue;
-		int encoderdegree;
+		double encodervalue;
+		double encoderdegree;
 		DriverStationLCD *screen = DriverStationLCD::GetInstance();
+		encoder.Start();
+		encoder.Reset(); 
 		while (IsOperatorControl())
 		{
-			encodervalue=encoder.GetValue();
-			encoderdegree=encodervalue*0.36;
+			encodervalue = encoder.GetRaw();
+			encoderdegree = encodervalue*0.36;
 			screen->PrintfLine(DriverStationLCD::kUser_Line1,"Degree %d", encoderdegree);
 			screen->PrintfLine(DriverStationLCD::kUser_Line2,"Value %d", encodervalue);
 			screen->UpdateLCD();
 			Wait(0.005);				// wait for a motor update time
 		}
+		encoder.Stop();	
 	}
 	
 	/**
