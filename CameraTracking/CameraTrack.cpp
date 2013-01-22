@@ -47,14 +47,30 @@ public:
 		{
 			screen->UpdateLCD();
 			count++;
-			HSLImage* imgpointer;
-			imgpointer = camera.GetImage();
+			HSLImage* imgpointer;		//declares a new hue saturation lum image
+			imgpointer = camera.GetImage();  //grabs an image to initialize that image
 			//imaqCreateImage(IMAQ_IMAGE_U8,) 
 			//imaqCast(NULL, imgpointer, IMAQ_IMAGE_U8, NULL, -1);
-			BinaryImage* binImg = NULL;
+			BinaryImage* binImg = NULL;	//declares a new binary image
+			
+			
+			//ThresholdHSL changes our regular image into a binary image.
+			/*hueLow Low value for hue  
+			hueHigh High value for hue  
+			saturationLow Low value for saturation  
+			saturationHigh High value for saturation  
+			luminenceLow Low value for luminence  
+			luminenceHigh High value for luminence   
+			 */
 			binImg = imgpointer->ThresholdHSL(1, 255, 1, 255, 230, 255);
+			
+			//Saves the image to a temp directory
 			binImg->Write("/tmp/thresh.jpg");
-			imaqWriteFile(binImg->GetImaqImage(), "/tmp/thresh2.jpg", NULL); 
+			
+			//Writes the binary image to disk
+			
+			imaqWriteFile(binImg->GetImaqImage(), "/tmp/thresh2.jpg", NULL);
+			
 			delete imgpointer;
 			Image* Convex = imaqCreateImage(IMAQ_IMAGE_U8, 0);
 			int returnvalue;
@@ -68,6 +84,8 @@ public:
 			float lookuptable[256];
 			lookuptable[0] = 0;
 			lookuptable[1] = 65535;
+			
+			//Converts image to 16 bit, then back to 8 bit.
 			Image* cast = imaqCreateImage(IMAQ_IMAGE_U16, 0);
 			imaqCast(cast, Convex, IMAQ_IMAGE_U16, lookuptable, 0);
 			imaqDispose(Convex);
@@ -76,6 +94,7 @@ public:
 			imaqDispose(cast);
 	//		screen->PrintfLine(DriverStationLCD::kUser_Line3,"det %d", imaqGetLastError());//Notifies the user
 			imaqWriteFile(bitcast, "/tmp/bitcast.jpg", NULL);
+			
 			//Image* SuperSize = im
 			//imaqCreateImage(IMAQ_IMAGE_U8, 2240);
 			//int returnvalue2;
@@ -116,7 +135,7 @@ public:
 				NULL,			// angle ranges
 				0,				// num angle ranges
 				{75, 125},		// scale range
-				300			// minMatchScore
+				300				// minMatchScore
 			};
 			
 			int matches = 0;
@@ -127,12 +146,14 @@ public:
 			float average = 0;
 			double y = 0;
 			
+			
+			//The big important line of code that does important stuff
 			RectangleMatch* recmatch = imaqDetectRectangles(bitcast, &rectangleDescriptor, &curveOptions, &shapeOptions, NULL, &matches);
 
 //			DashboardDataSender *dds;
 //			dds = new DashboardDataSender;
 
-		//	screen->PrintfLine(DriverStationLCD::kUser_Line3,"det %d", imaqGetLastError());
+			//screen->PrintfLine(DriverStationLCD::kUser_Line3,"det %d", imaqGetLastError());
 			//screen->PrintfLine(DriverStationLCD::kUser_Line4,"Matches: %d",matches);//Notifies the user
 			screen->PrintfLine(DriverStationLCD::kUser_Line1,"Matches: %i",matches);//Notifies the user
 			screen->UpdateLCD();
@@ -145,7 +166,7 @@ public:
 					highscore = recmatch[i].score;
 					highestindex = i;
 				}
-	//			screen->PrintfLine(DriverStationLCD::kUser_Line1,"score %i, i %i", recmatch[i].score, i);
+				screen->PrintfLine(DriverStationLCD::kUser_Line1,"score %i, i %i", recmatch[i].score, i);
 				screen->UpdateLCD();
 			}*/
 			average = (recmatch->corner[1].x + recmatch->corner[3].x)/2;
