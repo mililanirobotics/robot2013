@@ -41,7 +41,7 @@ public:
 	void Autonomous(void) {
 		//TODO:Autnomous code
 		light.Set(Relay::kOn);
-		bool isAligned;
+		bool isAligned = false;
 		//Pyramid allignment
 		while (!isAligned) {
 			float targety = 0;
@@ -105,8 +105,8 @@ public:
 				feederLock.Set(0);
 				//Do we want to put this in a for loop and fire all 4 disks, or shoot individual disks?
 			}
-			if (rightStick.GetRawButton(10)) { //End game code
-				bool isAligned;
+			if (rightStick.GetRawButton(10)) { //End game allignment code
+				bool isAligned = false;
 				//Pyramid allignment
 				while (!isAligned) {
 					float targety = 0;
@@ -123,6 +123,11 @@ public:
 						isAligned = true;
 					}
 				}
+				//TODO: Tell the driver that the robot is aligned
+			}
+			
+			//TODO: Find out some way to figure out when the claw is closed - possibly a switch?
+			if (grabber.isLocked()){  //Grabber.isLocked is psuedo code - we want to replace this
 				while (potFront.GetVoltage() < (10/3)) { // 10/3 comes from 5(voltage)/270(degrees total)*180 degrees we need to move
 					endGameLeftFront.Set(1);
 					endGameRightFront.Set(1);
