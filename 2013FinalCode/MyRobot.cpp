@@ -127,6 +127,14 @@ public:
 					}
 				}
 				while (potFront.GetVoltage() < (10/3) || switchFront.Get() < 1) { // 10/3 comes from 5(voltage)/270(degrees total)*180 degrees we need to move
+=======
+				//TODO: Tell the driver that the robot is aligned
+			}
+			
+			//TODO: Find out some way to figure out when the claw is closed - possibly a switch?
+			if (grabber.isLocked()){  //Grabber.isLocked is psuedo code - we want to replace this
+				while (potFront.GetVoltage() < (10/3)) { // 10/3 comes from 5(voltage)/270(degrees total)*180 degrees we need to move
+>>>>>>> origin/master
 					endGameLeftFront.Set(1);
 					endGameRightFront.Set(1);
 				}
