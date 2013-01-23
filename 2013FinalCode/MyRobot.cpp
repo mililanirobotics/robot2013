@@ -14,6 +14,7 @@ class RobotDemo : public SimpleRobot {
 	Relay light;
 	Servo pusher1, pusher2, feederLock;
 	AnalogChannel potFront, potBack;
+	DigitalInput switchFront, switchBack;
 
 public:
 	RobotDemo(void) :
@@ -31,7 +32,9 @@ public:
 				//Servos
 				pusher1(2, 1), pusher2(2, 2), feederLock(2, 3),
 				//Potentiometers
-				potFront(1, 1), potBack(1, 2) {
+				potFront(1, 1), potBack(1, 2),
+				//Switches
+				switchFront(1,3) , switchFront(1,4){
 
 	}
 
@@ -123,13 +126,13 @@ public:
 						isAligned = true;
 					}
 				}
-				while (potFront.GetVoltage() < (10/3)) { // 10/3 comes from 5(voltage)/270(degrees total)*180 degrees we need to move
+				while (potFront.GetVoltage() < (10/3) || switchFront.Get() < 1) { // 10/3 comes from 5(voltage)/270(degrees total)*180 degrees we need to move
 					endGameLeftFront.Set(1);
 					endGameRightFront.Set(1);
 				}
 				endGameLeftFront.Set(0);
 				endGameRightFront.Set(1);
-				while (potBack.GetVoltage() < (10/3)) {
+				while (potBack.GetVoltage() < (10/3) || switchBack.Get() < 1) {
 					endGameLeftBack.Set(1);
 					endGameRightBack.Set(1);
 				}
