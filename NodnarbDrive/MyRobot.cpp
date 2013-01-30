@@ -8,30 +8,49 @@
  */ 
 class RobotDemo : public SimpleRobot
 {
-	//RobotDrive myRobot;
+	//RobotDrive myRobot; // robot drive system
 	Joystick stick; // only joystick
-	Jaguar jagl, jagr; // robot drive system
-
+	
+	
 public:
 	RobotDemo(void):
 		//myRobot(1, 2),	// these must be initialized in the same order
-		stick(1),		// as they are declared above.
-		jagl (1), jagr (2)	
+		stick (1)
 	{
 		//myRobot.SetExpiration(0.1);
 	}
-
+	
+	
 	/**
 	 * Drive left & right motors for 2 seconds then stop
 	 */
+	float* Xbox(void) {
+		float *object = new float [3];
+		object[0] = stick.GetY();
+		object[1] = stick.GetTwist();
+		return object;
+	}
+	
+	float* Logitech(void){
+		float *object = new float [2];
+		object[0] = stick.GetY();
+		object[1] = stick.GetX();
+		return object;
+	}
+	
+	float* Standard(void){
+		float *object = new float [2];
+		object[0] = stick.GetY();
+		object[1] = stick.GetX();
+		return object;
+	}
+	
 	void Autonomous(void)
 	{
-		/*
-		myRobot.SetSafetyEnabled(false);
-		myRobot.Drive(-0.5, 0.0); 	// drive forwards half speed
-		Wait(2.0); 				//    for 2 seconds
-		myRobot.Drive(0.0, 0.0); 	// stop robot
-		*/
+		//myRobot.SetSafetyEnabled(false);
+		//myRobot.Drive(-0.5, 0.0); 	// drive forwards half speed
+		//Wait(2.0); 				//    for 2 seconds
+		//myRobot.Drive(0.0, 0.0); 	// stop robot
 	}
 
 	/**
@@ -39,56 +58,21 @@ public:
 	 */
 	void OperatorControl(void)
 	{
-	float throttle = 0;
-	float direction = 0;
 	DriverStationLCD *screen = DriverStationLCD::GetInstance();
 		while (IsOperatorControl())
 		{
-			
-			throttle = stick.GetThrottle();
-			
-			while(stick.GetThrottle() > 0.01 || stick.GetThrottle() < -0.01)
-			{
-				jagl.Set(stick.GetThrottle());
-				jagr.Set(-stick.GetThrottle());
-				screen->PrintfLine(DriverStationLCD::kUser_Line3, "Left Jag Set: %f", jagl.Get());
-				screen->PrintfLine(DriverStationLCD::kUser_Line4, "Right Jag Set: %f", jagr.Get());
-				screen->UpdateLCD();
-			}
-			
-			
-			
-			direction = stick.GetX(); //direction left or right based on x
-			//if (direction < 0)
-			//direction  = -direction;
-			while (stick.GetX() < -.1)
-			{
-			jagl.Set(stick.GetX());
-			jagr.Set(stick.GetX());
-			screen->PrintfLine(DriverStationLCD::kUser_Line3, "Left Jag Set: %f", jagl.Get());
-			screen->PrintfLine(DriverStationLCD::kUser_Line4, "Right Jag Set: %f", jagr.Get());
-			screen->UpdateLCD();
-			}
-			while (stick.GetX() > .1)
-			{
-			jagl.Set(stick.GetX());
-			jagr.Set(stick.GetX());
-			screen->PrintfLine(DriverStationLCD::kUser_Line3, "Left Jag Set: %f", jagl.Get());
-			screen->PrintfLine(DriverStationLCD::kUser_Line4, "Right Jag Set: %f", jagr.Get());
-			screen->UpdateLCD();
-			}
-			screen->PrintfLine(DriverStationLCD::kUser_Line1, "Throttle: %f",	throttle);
-			screen->PrintfLine(DriverStationLCD::kUser_Line2, "Direction: %f",	direction);
-			screen->PrintfLine(DriverStationLCD::kUser_Line3, "Left Jag Set: %f", jagl.Get());
-			screen->PrintfLine(DriverStationLCD::kUser_Line4, "Right Jag Set: %f", jagr.Get());
-			jagl.Set(0.0);
-			jagr.Set(0.0);
-			screen->UpdateLCD();
+		float *object = new float[2];
+		//object = Xbox();
+		object = Logitech();
+		//object = Standard();
+		screen->PrintfLine(DriverStationLCD::kUser_Line1,"Direction %f",object[0] );
+		screen->PrintfLine(DriverStationLCD::kUser_Line2,"Throttle %f",object[1] );	
+		screen->UpdateLCD();
 
-	
-					
 		}
 	}
+	
+
 	
 	/**
 	 * Runs during test mode
