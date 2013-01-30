@@ -4,3 +4,4 @@
 *.d
 *.c
 *.cproject
+Makefile
