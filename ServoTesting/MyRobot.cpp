@@ -18,19 +18,12 @@ public:
 		
 	}
 
-	/**
-	 * Drive left & right motors for 2 seconds then stop
-	 */
 	void Autonomous(void)
 	{
 	
-		Wait(2.0); 				//    for 2 seconds
-		
 	}
 
-	/**
-	 * Runs the motors with arcade steering. 
-	 */
+
 	void OperatorControl(void)
 	{
 		while (IsOperatorControl()) {
