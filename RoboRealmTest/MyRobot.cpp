@@ -11,16 +11,14 @@ using namespace std;
 class RobotDemo : public SimpleRobot
 {
 	Joystick stick;
-	Servo servo;
+	Servo lock;
+	//Servo door;
 public:
 	NetworkTable *netTable;
 	RobotDemo(void):
-	stick(1),
-	servo(1)
+	stick(1),lock(1)//,door(1)
 	{
-		NetworkTable::SetServerMode();
-		NetworkTable::Initialize();
-		netTable = NetworkTable::GetTable("SmartDashboard");
+
 	}
 
 	/**
@@ -36,35 +34,24 @@ public:
 	 */
 	void OperatorControl(void)
 	{
-		servo.Set(stick.GetThrottle());
-		DriverStationLCD *screen = DriverStationLCD::GetInstance();
-		double xpos = 0;
-		
-		//double ypos = 0;
-		servo.Set(0);
-		while (IsOperatorControl())
-		{
-			//servo.Set((stick.GetTwist()+1)/2);
-			try{
-			xpos = netTable->GetNumber("Slider 1", 1);
-			screen->PrintfLine(DriverStationLCD::kUser_Line2, "%d", xpos);
-			//screen->PrintfLine(DriverStationLCD::kUser_Line1,(char*)xpos.c_str());  FOR STRINGS
+	//	bool closed = true;
+		bool locked = true;
+		while (IsOperatorControl()){
+			if (stick.GetRawButton(1)){
+					lock.Set(0);
 			}
-			catch (...)
-			{
-				screen->PrintfLine(DriverStationLCD::kUser_Line2,"ERROR OCCOURED!");
+			if (stick.GetRawButton(2)){
+					lock.Set(1);
 			}
-			screen->UpdateLCD();
-//			ypos = netTable->GetNumber("OBJECT_Y_COORD");
-//			screen->PrintfLine(DriverStationLCD::kUser_Line2, (char*)xpos.c_str());
-//			screen->UpdateLCD();
-//			if (xpos > 167)
-//			{
-//				servo.Set(servo.Get() + .02);
-//			}
-//			if (xpos < 153)
-//			{
-//				servo.Set(servo.Get() - .02);
+//			if (stick.GetRawButton(2)){
+//				if (closed){
+//					door.Set(0);
+//					closed = false;
+//				}
+//				else{
+//					door.Set(1);
+//					closed = true;
+//				}
 //			}
 		}
 	}

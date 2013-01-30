@@ -31,8 +31,8 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
-PRJ_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robotics2013/robot2013.git/2012RobotCode
-WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robotics2013/robot2013.git
+PRJ_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013/2012RobotCode
+WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013
 
 
 
@@ -113,7 +113,7 @@ ButtonTest/$(MODE_DIR)/% : LIBPATH =
 ButtonTest/$(MODE_DIR)/% : LIBS = 
 ButtonTest/$(MODE_DIR)/% : OBJ_DIR := ButtonTest/$(MODE_DIR)
 
-ButtonTest/$(MODE_DIR)/Objects/ButtonTest/PPC603gnu/ButtonTest/Debug/ctdt.o : C:/Users/mhsrobotics/Desktop/Robotics2013/robot2013.git/ButtonTest/PPC603gnu/ButtonTest/Debug/ctdt.c
+ButtonTest/$(MODE_DIR)/Objects/ButtonTest/PPC603gnu/ButtonTest/Debug/ctdt.o : C:/Users/mhsrobotics/Desktop/Robot\ 2013/ButtonTest/PPC603gnu/ButtonTest/Debug/ctdt.c
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C-Compiler) $(CC_ARCH_SPEC) -ansi  -Wall  -MD -MP -mlongcall $(ADDED_CFLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 

@@ -33,8 +33,8 @@ public:
 				pusher1(2, 1), pusher2(2, 2), feederLock(2, 3),
 				//Potentiometers
 				potFront(1, 1), potBack(1, 2),
-				//Switches
-				switchFront(1,3) , switchFront(1,4){
+				switchFront(3), switchBack(4){
+				
 
 	}
 
@@ -127,14 +127,13 @@ public:
 					}
 				}
 				while (potFront.GetVoltage() < (10/3) || switchFront.Get() < 1) { // 10/3 comes from 5(voltage)/270(degrees total)*180 degrees we need to move
-=======
+
 				//TODO: Tell the driver that the robot is aligned
 			}
 			
 			//TODO: Find out some way to figure out when the claw is closed - possibly a switch?
-			if (grabber.isLocked()){  //Grabber.isLocked is psuedo code - we want to replace this
+			//if (grabber.isLocked()){  //Grabber.isLocked is psuedo code - we want to replace this
 				while (potFront.GetVoltage() < (10/3)) { // 10/3 comes from 5(voltage)/270(degrees total)*180 degrees we need to move
->>>>>>> origin/master
 					endGameLeftFront.Set(1);
 					endGameRightFront.Set(1);
 				}
@@ -147,6 +146,7 @@ public:
 				endGameLeftBack.Set(0);
 				endGameRightBack.Set(0);
 				//TODO: Repeat this code for the number of times we are going to move the arms
+			//}
 			}
 		}
 	}

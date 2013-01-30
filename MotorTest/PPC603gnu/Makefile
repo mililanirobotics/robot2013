@@ -31,8 +31,8 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
+PRJ_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013/MotorTest
 WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013
-PRJ_ROOT_DIR := $(WS_ROOT_DIR)/MotorTest
 
 
 
@@ -55,8 +55,6 @@ LIBS =
 IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
 
 IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
-
-IDE_DEFINES = 
 
 
 
@@ -102,7 +100,6 @@ MotorTest/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -O2 -fstrength-reduce -fno-buil
 endif
 MotorTest/$(MODE_DIR)/% : IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
 MotorTest/$(MODE_DIR)/% : IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
-MotorTest/$(MODE_DIR)/% : IDE_DEFINES = 
 MotorTest/$(MODE_DIR)/% : PROJECT_TYPE = DKM
 MotorTest/$(MODE_DIR)/% : DEFINES = 
 MotorTest/$(MODE_DIR)/% : EXPAND_DBG = 0
@@ -116,7 +113,7 @@ MotorTest/$(MODE_DIR)/% : LIBPATH =
 MotorTest/$(MODE_DIR)/% : LIBS = 
 MotorTest/$(MODE_DIR)/% : OBJ_DIR := MotorTest/$(MODE_DIR)
 
-MotorTest/$(MODE_DIR)/Objects/MotorTest/MotorTest.o : $(PRJ_ROOT_DIR)/MotorTest.cpp $(FORCE_FILE_BUILD)
+MotorTest/$(MODE_DIR)/Objects/MotorTest/MotorTest.o : C:/Users/mhsrobotics/Desktop/Robot\ 2013/MotorTest/MotorTest.cpp
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
@@ -131,8 +128,6 @@ _clean :: MotorTest/$(MODE_DIR)/MotorTest_clean
 
 MotorTest/$(MODE_DIR)/MotorTest_clean : 
 	$(TRACE_FLAG)if [ -d "MotorTest" ]; then cd "MotorTest"; rm -rf $(MODE_DIR); fi
-
-force : 
 
 DEP_FILES := MotorTest/$(MODE_DIR)/Objects/MotorTest/MotorTest.d
 -include $(DEP_FILES)

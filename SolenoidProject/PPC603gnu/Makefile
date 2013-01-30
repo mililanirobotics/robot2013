@@ -31,8 +31,8 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
-PRJ_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013/SolenoidProject
 WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013
+PRJ_ROOT_DIR := $(WS_ROOT_DIR)/SolenoidProject
 
 
 
@@ -56,6 +56,8 @@ IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_B
 
 IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
 
+IDE_DEFINES = 
+
 
 
 #BuildTool flags
@@ -77,10 +79,64 @@ endif
 
 
 #Project Targets
-PROJECT_TARGETS =
+PROJECT_TARGETS = SolenoidProject/$(MODE_DIR)/SolenoidProject.out
 
 
 #Rules
+
+# SolenoidProject
+ifeq ($(DEBUG_MODE),1)
+SolenoidProject/$(MODE_DIR)/% : DEBUGFLAGS_C-Compiler = -g
+SolenoidProject/$(MODE_DIR)/% : DEBUGFLAGS_C++-Compiler = -g
+SolenoidProject/$(MODE_DIR)/% : DEBUGFLAGS_Linker = -g
+SolenoidProject/$(MODE_DIR)/% : DEBUGFLAGS_Partial-Image-Linker = 
+SolenoidProject/$(MODE_DIR)/% : DEBUGFLAGS_Librarian = 
+SolenoidProject/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -g
+else
+SolenoidProject/$(MODE_DIR)/% : DEBUGFLAGS_C-Compiler = -O2 -fstrength-reduce -fno-builtin
+SolenoidProject/$(MODE_DIR)/% : DEBUGFLAGS_C++-Compiler = -O2 -fstrength-reduce -fno-builtin
+SolenoidProject/$(MODE_DIR)/% : DEBUGFLAGS_Linker = -O2 -fstrength-reduce -fno-builtin
+SolenoidProject/$(MODE_DIR)/% : DEBUGFLAGS_Partial-Image-Linker = 
+SolenoidProject/$(MODE_DIR)/% : DEBUGFLAGS_Librarian = 
+SolenoidProject/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -O2 -fstrength-reduce -fno-builtin
+endif
+SolenoidProject/$(MODE_DIR)/% : IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
+SolenoidProject/$(MODE_DIR)/% : IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
+SolenoidProject/$(MODE_DIR)/% : IDE_DEFINES = 
+SolenoidProject/$(MODE_DIR)/% : PROJECT_TYPE = DKM
+SolenoidProject/$(MODE_DIR)/% : DEFINES = 
+SolenoidProject/$(MODE_DIR)/% : EXPAND_DBG = 0
+SolenoidProject/$(MODE_DIR)/% : VX_CPU_FAMILY = ppc
+SolenoidProject/$(MODE_DIR)/% : CPU = PPC603
+SolenoidProject/$(MODE_DIR)/% : TOOL_FAMILY = gnu
+SolenoidProject/$(MODE_DIR)/% : TOOL = gnu
+SolenoidProject/$(MODE_DIR)/% : TOOL_PATH = 
+SolenoidProject/$(MODE_DIR)/% : CC_ARCH_SPEC = -mcpu=603 -mstrict-align -mno-implicit-fp -mlongcall
+SolenoidProject/$(MODE_DIR)/% : LIBPATH = 
+SolenoidProject/$(MODE_DIR)/% : LIBS = 
+SolenoidProject/$(MODE_DIR)/% : OBJ_DIR := SolenoidProject/$(MODE_DIR)
+
+SolenoidProject/$(MODE_DIR)/Objects/SolenoidProject/SolenoidProject.o : $(PRJ_ROOT_DIR)/SolenoidProject.cpp $(FORCE_FILE_BUILD)
+	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
+
+
+OBJECTS_SolenoidProject = SolenoidProject/$(MODE_DIR)/Objects/SolenoidProject/SolenoidProject.o
+
+SolenoidProject/$(MODE_DIR)/SolenoidProject.out : $(OBJECTS_SolenoidProject)
+	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@";rm -f "$@";nmppc $(OBJECTS_SolenoidProject) $(IDE_LIBRARIES) | tclsh $(WIND_BASE)/host/resource/hutils/tcl/munch.tcl -c ppc > $(OBJ_DIR)/ctdt.c; $(TOOL_PATH)ccppc $(DEBUGFLAGS_Linker) $(CC_ARCH_SPEC) -fdollars-in-identifiers -Wall $(ADDED_CFLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES)  -o $(OBJ_DIR)/ctdt.o -c $(OBJ_DIR)/ctdt.c; $(TOOL_PATH)ccppc -r -nostdlib -Wl,-X -T $(WIND_BASE)/target/h/tool/gnu/ldscripts/link.OUT -o "$@" $(OBJ_DIR)/ctdt.o $(OBJECTS_SolenoidProject) $(IDE_LIBRARIES) $(LIBPATH) $(LIBS)  $(ADDED_LIBPATH) $(ADDED_LIBS) && if [ "$(EXPAND_DBG)" = "1" ]; then plink "$@";fi
+
+SolenoidProject/$(MODE_DIR)/SolenoidProject_compile_file : $(FILE) ;
+
+_clean :: SolenoidProject/$(MODE_DIR)/SolenoidProject_clean
+
+SolenoidProject/$(MODE_DIR)/SolenoidProject_clean : 
+	$(TRACE_FLAG)if [ -d "SolenoidProject" ]; then cd "SolenoidProject"; rm -rf $(MODE_DIR); fi
+
+force : 
+
+DEP_FILES := SolenoidProject/$(MODE_DIR)/Objects/SolenoidProject/SolenoidProject.d
+-include $(DEP_FILES)
+
 
 
 -include $(PRJ_ROOT_DIR)/*.makefile

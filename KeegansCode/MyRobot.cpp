@@ -8,24 +8,14 @@
  */ 
 class RobotDemo : public SimpleRobot
 {
-	Joystick rightstick;
-	Joystick leftstick;
-	Jaguar jag1;
-	Jaguar jag2;
-	Jaguar jag3;
-	Jaguar jag4;
-	RobotDrive drive;
-
+	Joystick stick;
+	Jaguar jaguar;
+	
 public:
 	RobotDemo(void):
 	
-		leftstick(1),
-		rightstick(2),
-		jag1(3),
-		jag2(4),
-		jag3(5),
-		jag4(6),
-		drive(jag1,jag2,jag3,jag4)
+		stick(1),
+		jaguar(2)
 
 	{
 		
@@ -37,11 +27,13 @@ public:
 	 * Runs the motors with tank steering. 
 	 */
 	void OperatorControl(void)
-	{
-		
-		drive.TankDrive(leftstick,rightstick);
+	{ 
+		while (IsOperatorControl())
+		{
 			
-
+		}
+		
+		
 	}
 	
 	/**
