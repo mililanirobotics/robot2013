@@ -7,14 +7,15 @@
 class RobotDemo: public SimpleRobot { // driver station object for getting selections
 	Joystick leftstick;
 	Jaguar shooter1;
-	Jaguar shooter2;
+	//Jaguar shooter2;
+	//Servo servo;
 
 public:
 	RobotDemo(void) :
 		leftstick(1),
-		//servo(3),
-		shooter1(1),
-		shooter2 (2)
+		//servo(3)
+		shooter1(1)
+		
 	{
 
 	}
@@ -34,6 +35,7 @@ public:
 			while (IsOperatorControl()) {
 				screen->PrintfLine(DriverStationLCD::kUser_Line1,
 						"Z input: %f", leftstick.GetThrottle());
+				//screen->PrintfLine(DriverStationLCD::kUser_Line2, "Servo %f", servo.GetAngle());
 //				if (leftstick.GetRawButton(1)) {
 //					shooter1.Set(.10);
 //					//shooter2.Set(-0.5);
@@ -54,15 +56,15 @@ public:
 //					shooter1.Set(0 - 0.80);
 //					//shooter2.Set(0);
 //				} 
-				if(leftstick.GetRawButton(1))
+				
+				if(leftstick.GetRawButton(2))
 				{
 					shooter1.Set(leftstick.GetThrottle());
-					shooter2.Set(leftstick.GetThrottle());
+					//shooter2.Set(leftstick.GetThrottle());
 				}
 				else
 				{
-					shooter1.Set(0);
-					shooter2.Set(0);
+					shooter1.Set(0.0);
 				}
 				screen->UpdateLCD();
 			}
