@@ -17,7 +17,7 @@ public:
 	RobotDemo(void):
 
 	/*	stick2(2), */
-		myRobot(1, 2),	// these must be initialized in the same order
+		myRobot(1, 2, 3, 4),	// these must be initialized in the same order
 		stick(1)		// as they are declared above.
 	{
 		//myRobot.SetExpiration(0.1);
