@@ -69,34 +69,60 @@ public:
 		screen->UpdateLCD();
 		while (IsAutonomous())
 		{
+			/* Locate & set up camera to be used*/
 			AxisCamera &camera = AxisCamera::GetInstance("10.28.53.11");
 			camera.WriteResolution(AxisCamera::kResolution_320x240);
 			camera.WriteCompression(80);//Compresses the image(?)
 			camera.WriteBrightness(50);//Sets the brightness to 80 on a scale from 0-100
+			
 			int matches = 0;
 			float average = 0;
+			
+			/* Turn on ringlight */
 			spike.Set(Relay::kOn);
+			
+			/* Connect to DriverStation */
 			DriverStationLCD *screen = DriverStationLCD::GetInstance();
 			screen->PrintfLine(DriverStationLCD::kUser_Line1,"CAA Active");
 			screen->UpdateLCD();
+			
+			/* Create pointer for current image */
 			HSLImage* imgpointer;
 			imgpointer = camera.GetImage();
+			
+			/* Moves the image from HSL image pointer to binary image pointer and filters using hue/saturation/luminance threshold */
+			/* (Pixels below HSL threshold is removed from the image. The rest of the image becomes binary */
 			BinaryImage* binImg = NULL;
-			binImg = imgpointer->ThresholdHSL(0, 255, 0, 255, 240, 255); //somebody please type a comment here that actually says what the parameters do
+			//ThresholdHSL (int hueLow, int hueHigh, int saturationLow, int saturationHigh, int luminenceLow, int luminenceHigh)
+			binImg = imgpointer->ThresholdHSL(0, 255, 0, 255, 240, 255);
 			delete imgpointer;
+			
+			/* Applies size filter (gets rid of small particles) and moves image from binImg pointer to Size pointer */
 			Image* Convex = imaqCreateImage(IMAQ_IMAGE_U8, 0);
 			Image* Size = imaqCreateImage(IMAQ_IMAGE_U8, 0);
+			
+			//int imaqSizeFilter(Image* dest, Image* source, int connectivity8, int erosions, SizeType keepSize, const StructuringElement* structuringElement); 
 			imaqSizeFilter(Size, binImg->GetImaqImage(), TRUE, 1, IMAQ_KEEP_LARGE, NULL);
 			delete binImg;
+			
+			/* Fills in holes to make solid shapes in the image and moves the image from Size pointer to Convex filter */
+			//int imaqConvexHull(Image* dest, Image* source, int connectivity8); 
 			imaqConvexHull(Convex, Size, TRUE);
 			imaqDispose(Size);
 			screen->UpdateLCD();
+			
+			/* herpderp */
 			float lookuptable[256];
 			lookuptable[0] = 0;
 			lookuptable[1] = 65535;
+			
+			/* Casts image to 16-bit and moves image from Convex pointer to cast pointer */
+			//int imaqCast(Image* dest, const Image* source, ImageType type, const float* lookup, int shift); 
 			Image* cast = imaqCreateImage(IMAQ_IMAGE_U16, 0);
 			imaqCast(cast, Convex, IMAQ_IMAGE_U16, lookuptable, 0);
 			imaqDispose(Convex);
+			
+			/* Casts image to 8-bit and moves image from cast pointer to bitcast pointer */
 			Image* bitcast = imaqCreateImage(IMAQ_IMAGE_U8, 0);
 			imaqCast(bitcast, cast, IMAQ_IMAGE_U8, NULL, 0);
 			imaqDispose(cast);

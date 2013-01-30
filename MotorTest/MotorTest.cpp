@@ -66,7 +66,13 @@ public:
 				{
 					shooter1.Set(0.0);
 				}
-				screen->UpdateLCD();
+				if (leftstick.GetRawButton(2))
+					servo.Set(0.0);
+				if (leftstick.GetRawButton(3))
+					servo.Set(1.0);
+				
+				
+			
 			}
 			// supply your own teleop code here
 		}
