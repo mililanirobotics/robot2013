@@ -1,0 +1,8 @@
+.cproject
+/.metadata/
+/*/PP603gnu/Makefile
+*.o
+*.d
+*.c
+*.cproject
+Makefile

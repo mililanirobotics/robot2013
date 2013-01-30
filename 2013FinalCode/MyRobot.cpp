@@ -161,6 +161,7 @@ public:
 				endGameLeftBack.Set(0);
 				endGameRightBack.Set(0);
 				//TODO: Repeat this code for the number of times we are going to move the arms
+			//}
 			}
 		}
 	
