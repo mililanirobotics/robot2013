@@ -8,6 +8,10 @@
  */ 
 class RobotDemo : public SimpleRobot
 {
+	Jaguar fl;
+	Jaguar fr;
+	Jaguar rl;
+	Jaguar rr;
 	RobotDrive myRobot; // robot drive system
 	Joystick stick; // Extreme3DPro
 /*	Joystick stick2; //optional second stick */
@@ -17,7 +21,11 @@ public:
 	RobotDemo(void):
 
 	/*	stick2(2), */
-		myRobot(1, 2, 3, 4),	// these must be initialized in the same order
+		fl(1),
+		fr(2),
+		rl(3),
+		rr(4),
+		myRobot(fl, rl, fr, rr),	// these must be initialized in the same order
 		stick(1)		// as they are declared above.
 	{
 		//myRobot.SetExpiration(0.1);
@@ -33,12 +41,19 @@ public:
 	void OperatorControl(void)
 	{
 		
-	//	DriverStationLCD *screen -> DriverStationLCD::GetInstance();
+		DriverStationLCD *screen = DriverStationLCD::GetInstance();
 		
 		while (IsOperatorControl())
 		{
 			/* Using the Extreme3DPro Joystick */
 			myRobot.MecanumDrive_Cartesian(stick.GetY(), stick.GetX(), stick.GetTwist(), 0.0);
+			screen->PrintfLine(DriverStationLCD::kUser_Line1,"FL: %.3f, FR: %.3f", fl.Get(), fr.Get());
+			screen->PrintfLine(DriverStationLCD::kUser_Line2,"BL: %.3f, BR: %.3f", rl.Get(), rr.Get());
+			screen->PrintfLine(DriverStationLCD::kUser_Line3,"X: %.3f, Y: %.3f", stick.GetX(), stick.GetY());
+			screen->PrintfLine(DriverStationLCD::kUser_Line4,"y", rr.Get());
+			screen->PrintfLine(DriverStationLCD::kUser_Line5,"B: %f", rr.Get());
+			screen->PrintfLine(DriverStationLCD::kUser_Line6,"Back Right: %f", rr.Get());
+			
 			/* Using two Joysticks */
 // 	 	 	myRobot.MecanumDrive_Cartesian(stick.GetY(), stick.GetX(), stick2.GetX(), 0.0);
 			/* Using an Xbox controller */
