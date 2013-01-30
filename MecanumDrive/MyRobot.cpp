@@ -9,20 +9,14 @@
 class RobotDemo : public SimpleRobot
 {
 	RobotDrive myRobot; // robot drive system
-	Joystick stick; // only joystick
+	Joystick stick; // Extreme3DPro
+/*	Joystick stick2; //optional second stick */
 	
-	/* motors pl0x */
-	
-	float wheelFL;
-	float wheelFR;
-	float wheelBL;
-	float wheelBR;	
 
 public:
 	RobotDemo(void):
-		
-		/* motors pl0x */
-		
+
+	/*	stick2(2), */
 		myRobot(1, 2),	// these must be initialized in the same order
 		stick(1)		// as they are declared above.
 	{
@@ -30,31 +24,6 @@ public:
 	}
 
 	
-	void verticalDrive (float speed)
-	{
-		wheelFL += speed;
-		wheelFR += speed;
-		wheelBL += speed;
-		wheelBR += speed;
-	}
-	void horizontalDrive (float speed)
-	{
-		wheelFL -= speed;
-		wheelFR += speed;
-		wheelBL += speed;
-		wheelBR -= speed;
-	}
-	void rotationDrive (float speed)
-	{
-		wheelFL += speed;
-		wheelFR -= speed;
-		wheelBL += speed;
-		wheelBR -= speed;
-	}
-	
-	/**
-	 * Drive left & right motors for 2 seconds then stop
-	 */
 	void Autonomous(void)
 	{
 
@@ -63,22 +32,20 @@ public:
 
 	void OperatorControl(void)
 	{
-		wheelFL = 0;
-		wheelFR = 0;
-		wheelBL = 0;
-		wheelBR = 0;	
 		
-		myRobot.SetSafetyEnabled(true);
+	//	DriverStationLCD *screen -> DriverStationLCD::GetInstance();
+		
 		while (IsOperatorControl())
 		{
-			verticalDrive(stick.GetY());
-			horizontalDrive(stick.GetX());
-			rotationDrive(stick.GetTwist()); 
+			/* Using the Extreme3DPro Joystick */
+			myRobot.MecanumDrive_Cartesian(stick.GetY(), stick.GetX(), stick.GetTwist(), 0.0);
+			/* Using two Joysticks */
+// 	 	 	myRobot.MecanumDrive_Cartesian(stick.GetY(), stick.GetX(), stick2.GetX(), 0.0);
+			/* Using an Xbox controller */
+//			myRobot.MecanumDrive_Cartesian(stick.GetY(), stick.GetX(), stick.GetZ(), 0.0);
+
+//			screen->PrintfLine(DriverStationLCD::kUser_Line1("FL: .3f%",wheelFL));
 			
-		/*	frontLeftMotor.set(wheelFL); //replace with real motor
-			frontRightMotor.set(wheelFR); //replace with real motor
-			backLeftMotor.set(wheelBL); //replace with real motor
-			backRightMotor.set(wheelBR); //replace with real motor */
 		}
 	}
 	
