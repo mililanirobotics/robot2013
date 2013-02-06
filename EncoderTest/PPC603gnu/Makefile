@@ -31,8 +31,8 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
-WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/robot2013
-PRJ_ROOT_DIR := $(WS_ROOT_DIR)/EncoderTest
+PRJ_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013/EncoderTest
+WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013
 
 
 
@@ -55,8 +55,6 @@ LIBS =
 IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
 
 IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
-
-IDE_DEFINES = 
 
 
 
@@ -102,7 +100,6 @@ EncoderTest/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -O2 -fstrength-reduce -fno-bu
 endif
 EncoderTest/$(MODE_DIR)/% : IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
 EncoderTest/$(MODE_DIR)/% : IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
-EncoderTest/$(MODE_DIR)/% : IDE_DEFINES = 
 EncoderTest/$(MODE_DIR)/% : PROJECT_TYPE = DKM
 EncoderTest/$(MODE_DIR)/% : DEFINES = 
 EncoderTest/$(MODE_DIR)/% : EXPAND_DBG = 0
@@ -116,7 +113,7 @@ EncoderTest/$(MODE_DIR)/% : LIBPATH =
 EncoderTest/$(MODE_DIR)/% : LIBS = 
 EncoderTest/$(MODE_DIR)/% : OBJ_DIR := EncoderTest/$(MODE_DIR)
 
-EncoderTest/$(MODE_DIR)/Objects/EncoderTest/EncoderTest.o : $(PRJ_ROOT_DIR)/EncoderTest.cpp $(FORCE_FILE_BUILD)
+EncoderTest/$(MODE_DIR)/Objects/EncoderTest/EncoderTest.o : C:/Users/mhsrobotics/Desktop/Robot\ 2013/EncoderTest/EncoderTest.cpp
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
@@ -131,8 +128,6 @@ _clean :: EncoderTest/$(MODE_DIR)/EncoderTest_clean
 
 EncoderTest/$(MODE_DIR)/EncoderTest_clean : 
 	$(TRACE_FLAG)if [ -d "EncoderTest" ]; then cd "EncoderTest"; rm -rf $(MODE_DIR); fi
-
-force : 
 
 DEP_FILES := EncoderTest/$(MODE_DIR)/Objects/EncoderTest/EncoderTest.d
 -include $(DEP_FILES)

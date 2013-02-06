@@ -6,54 +6,56 @@
  * The SimpleRobot class is the base of a robot application that will automatically call your
  * Autonomous and OperatorControl methods at the right time as controlled by the switches on
  * the driver station or the field controls.
- */
-class RobotDemo: public SimpleRobot {
-
-	Servo servo;
-	Joystick joy1;
-	Relay spike;
+ */ 
+using namespace std;
+class RobotDemo : public SimpleRobot
+{
+	Joystick stick;
+	Servo lock;
+	//Servo door;
 public:
 	NetworkTable *netTable;
-	RobotDemo(void) :
-		servo(1), joy1(1), spike(1, Relay::kForwardOnly) {
+	RobotDemo(void):
+	stick(1),lock(1)//,door(1)
+	{
 
 	}
 
 	/**
 	 * Drive left & right motors for 2 seconds then stop
 	 */
-	void Autonomous(void) {
-		NetworkTable::SetIPAddress("10.28.53.2");
-		NetworkTable::SetServerMode();
-		NetworkTable::SetTeam(2853);
-		NetworkTable::Initialize();
-		netTable = NetworkTable::GetTable("SmartDashboard");
+	void Autonomous(void)
+	{
+		
 	}
 
 	/**
 	 * Runs the motors with arcade steering. 
 	 */
-	void OperatorControl(void) {
-		DriverStationLCD *screen = DriverStationLCD::GetInstance();
-		while (IsOperatorControl()) {
-			float xpos = 8;
-			xpos = netTable->GetNumber("Slider 1");
-			spike.Set(Relay::kOn);
-			float test = (joy1.GetTwist() + 1) / 2;
-			screen->PrintfLine(DriverStationLCD::kUser_Line1, "Z input: %f", test);
-	//		screen->PrintfLine(DriverStationLCD::kUser_Line1, "Z input: %d", xpos);
-		//	servo.Set(xpos/100);
-		//	if (xpos < 150) {
-		//		servo.Set(servo.Get() - .02);
-		//	}
-		//	if (xpos > 170) {
-		//		servo.Set(servo.Get() + .02);
-		//	}
-			screen->UpdateLCD();
-			servo.Set((joy1.GetTwist() + 1) / 2);
+	void OperatorControl(void)
+	{
+	//	bool closed = true;
+		bool locked = true;
+		while (IsOperatorControl()){
+			if (stick.GetRawButton(1)){
+					lock.Set(0);
+			}
+			if (stick.GetRawButton(2)){
+					lock.Set(1);
+			}
+//			if (stick.GetRawButton(2)){
+//				if (closed){
+//					door.Set(0);
+//					closed = false;
+//				}
+//				else{
+//					door.Set(1);
+//					closed = true;
+//				}
+//			}
 		}
 	}
-
+	
 	/**
 	 * Runs during test mode
 	 */
@@ -62,6 +64,5 @@ public:
 	}
 };
 
-START_ROBOT_CLASS(RobotDemo)
-;
+START_ROBOT_CLASS(RobotDemo);
 

@@ -31,8 +31,8 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
-WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/robot2013
-PRJ_ROOT_DIR := $(WS_ROOT_DIR)/GyroTest
+PRJ_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013/GyroTest
+WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013
 
 
 
@@ -55,8 +55,6 @@ LIBS =
 IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
 
 IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
-
-IDE_DEFINES = 
 
 
 
@@ -102,7 +100,6 @@ GyroTest/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -O2 -fstrength-reduce -fno-built
 endif
 GyroTest/$(MODE_DIR)/% : IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
 GyroTest/$(MODE_DIR)/% : IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
-GyroTest/$(MODE_DIR)/% : IDE_DEFINES = 
 GyroTest/$(MODE_DIR)/% : PROJECT_TYPE = DKM
 GyroTest/$(MODE_DIR)/% : DEFINES = 
 GyroTest/$(MODE_DIR)/% : EXPAND_DBG = 0
@@ -116,7 +113,7 @@ GyroTest/$(MODE_DIR)/% : LIBPATH =
 GyroTest/$(MODE_DIR)/% : LIBS = 
 GyroTest/$(MODE_DIR)/% : OBJ_DIR := GyroTest/$(MODE_DIR)
 
-GyroTest/$(MODE_DIR)/Objects/GyroTest/GyroTest.o : $(PRJ_ROOT_DIR)/GyroTest.cpp $(FORCE_FILE_BUILD)
+GyroTest/$(MODE_DIR)/Objects/GyroTest/GyroTest.o : C:/Users/mhsrobotics/Desktop/Robot\ 2013/GyroTest/GyroTest.cpp
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
@@ -131,8 +128,6 @@ _clean :: GyroTest/$(MODE_DIR)/GyroTest_clean
 
 GyroTest/$(MODE_DIR)/GyroTest_clean : 
 	$(TRACE_FLAG)if [ -d "GyroTest" ]; then cd "GyroTest"; rm -rf $(MODE_DIR); fi
-
-force : 
 
 DEP_FILES := GyroTest/$(MODE_DIR)/Objects/GyroTest/GyroTest.d
 -include $(DEP_FILES)
