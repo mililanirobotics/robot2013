@@ -14,7 +14,6 @@ class RobotDemo : public SimpleRobot {
 	Relay light;
 	Servo dumpLock;
 	AnalogChannel potFront, potBack;
-	DigitalInput switchFront, switchBack;  //Are we going to include these or not?
 
 public:
 	RobotDemo(void) :
@@ -23,7 +22,7 @@ public:
 				rightStick(2),
 				//Jaguars
 				driveFrontLeft(1), driveFrontRight(2), driveRearLeft(3), driveRearRight(4), endGameLeftFront(5),
-				endGameRightFront(6), endGameLeftBack(7), endGameRightBack(8), Dumper(9)
+				endGameRightFront(6), endGameLeftBack(7), endGameRightBack(8), Dumper(9),
 				//Drive
 				drive(1, 2, 3, 4),
 				//Light
@@ -31,17 +30,14 @@ public:
 				//Servos
 				dumpLock(10),
 				//Potentiometers
-				potFront(1, 1), potBack(1, 2),
-				//Switches
-				switchFront(1,3) , switchBack(1,4)
+				potFront(1, 1), potBack(1, 2)
 	{
 
 	}
 
 	void Autonomous(void) 
 	{
-	
-
+		
 	}
 
 	/**
@@ -59,10 +55,10 @@ public:
 				//Pyramid allignment
 				while (!isAligned) 
 				{
-					float targetx = 0;
-					//TODO: Get x and y values from NIVision or RoboRealm
-					//This code assumes that center of target is located at 100. (TODO: Get actual middle values and replace 100)
-					
+					//Make sure the variable is called Pyramid!
+					float targetx = SmartDashboard::GetNumber("Pyramid");
+					Sleep(5);				
+					//This code assumes that center of target is located at 160 (pixels).					
 					if (targetx < 150) { //+-10 error margin
 						//TODO: Move left
 					} else if (targetx > 170) {
@@ -71,12 +67,12 @@ public:
 						isAligned = true;
 					}
 				}
-				while (potFront.GetVoltage() < (10/3) || switchFront.Get() < 1) { // 10/3 comes from 5(voltage)/270(degrees total)*180 degrees we need to move
-
+				delete isAligned;
+				
 				//TODO: Tell the driver that the robot is aligned
-				}
+		
 			}
-			if (ClawIsClosed())
+			if (rightStick.GetRawButton(11))
 			{
 				while (potFront.GetVoltage() < (10/3)) { // 10/3 comes from 5(voltage)/270(degrees total)*180 degrees we need to move
 				//TODO: Change this to the actual turn amounts
@@ -85,15 +81,18 @@ public:
 					endGameRightFront.Set(1);
 				}
 				endGameLeftFront.Set(0);
-				endGameRightFront.Set(1);
+				endGameRightFront.Set(0);
+				
 				while (potBack.GetVoltage() < (10/3)) {
 					endGameLeftBack.Set(1);
 					endGameRightBack.Set(1);
 				}
 				endGameLeftBack.Set(0);
 				endGameRightBack.Set(0);
+				
+				
 				//TODO: Repeat this code for the number of times we are going to move the arms
-			//}
+				
 			}
 		}
 	
