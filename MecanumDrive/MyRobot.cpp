@@ -12,6 +12,7 @@ class RobotDemo : public SimpleRobot
 	Joystick stick; // only joystick
 	
 	/* motors pl0x */
+	Jaguar fL, fR, rL, rR;
 	
 	float wheelFL;
 	float wheelFR;
@@ -23,7 +24,8 @@ public:
 		
 		/* motors pl0x */
 		
-		myRobot(1, 2),	// these must be initialized in the same order
+		myRobot(1, 2, 3, 4),
+		fL(1), fR(2), rL(3), rR(4),// these must be initialized in the same order
 		stick(1)		// as they are declared above.
 	{
 		//myRobot.SetExpiration(0.1);
@@ -71,14 +73,18 @@ public:
 		myRobot.SetSafetyEnabled(true);
 		while (IsOperatorControl())
 		{
+			wheelFL = 0;
+			wheelFR = 0;
+			wheelBL = 0;
+			wheelBR = 0;	
 			verticalDrive(stick.GetY());
 			horizontalDrive(stick.GetX());
 			rotationDrive(stick.GetTwist()); 
-			
-		/*	frontLeftMotor.set(wheelFL); //replace with real motor
-			frontRightMotor.set(wheelFR); //replace with real motor
-			backLeftMotor.set(wheelBL); //replace with real motor
-			backRightMotor.set(wheelBR); //replace with real motor */
+		
+			fL.set(wheelFL); //replace with real motor
+			fR.set(wheelFR); //replace with real motor
+			rL.set(wheelBL); //replace with real motor
+			rR.set(wheelBR); //replace with real motor */
 		}
 	}
 	

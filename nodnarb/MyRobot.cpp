@@ -28,7 +28,8 @@ public:
 	float* Xbox(void) {
 		float *object = new float [3];
 		object[0] = stick.GetY();
-		object[1] = stick.GetTwist();
+		object[1] = stick.GetX();
+		object[2] = stick.GetTwist();
 		return object;
 	}
 	
@@ -63,11 +64,12 @@ public:
 		while (IsOperatorControl())
 		{
 		float *object = new float[2];
-		//object = Xbox();
-		object = Logitech();
+		object = Xbox();
+		//object = Logitech();
 		//object = Standard();
-		screen->PrintfLine(DriverStationLCD::kUser_Line1,"Direction %f",object[0] );
-		screen->PrintfLine(DriverStationLCD::kUser_Line2,"Throttle %f",object[1] );	
+		screen->PrintfLine(DriverStationLCD::kUser_Line1,"Y %f",object[0] );
+		screen->PrintfLine(DriverStationLCD::kUser_Line2,"X %f",object[1] );	
+		screen->PrintfLine(DriverStationLCD::kUser_Line3,"Z %f", object[2]);
 		screen->UpdateLCD();
 
 		}

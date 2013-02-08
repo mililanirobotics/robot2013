@@ -6,7 +6,7 @@
  */
 class RobotDemo: public SimpleRobot { // driver station object for getting selections
 	Joystick leftstick;
-	Jaguar shooter1;
+	Victor shooter1;
 	//Jaguar shooter2;
 	//Servo servo;
 
@@ -14,7 +14,7 @@ public:
 	RobotDemo(void) :
 		leftstick(1),
 		//servo(3)
-		shooter1(1)
+		shooter1(3)
 		
 	{
 
@@ -57,7 +57,7 @@ public:
 //					//shooter2.Set(0);
 //				} 
 				
-				if(leftstick.GetRawButton(2))
+				if(leftstick.GetRawButton(1))
 				{
 					shooter1.Set(leftstick.GetThrottle());
 					//shooter2.Set(leftstick.GetThrottle());
@@ -66,10 +66,11 @@ public:
 				{
 					shooter1.Set(0.0);
 				}
-				if (leftstick.GetRawButton(2))
-					servo.Set(0.0);
-				if (leftstick.GetRawButton(3))
-					servo.Set(1.0);
+				screen->UpdateLCD();
+//				if (leftstick.GetRawButton(2))
+//					servo.Set(0.0);
+//				if (leftstick.GetRawButton(3))
+//					servo.Set(1.0);
 				
 				
 			
