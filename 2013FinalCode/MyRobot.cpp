@@ -9,7 +9,7 @@
 class RobotDemo : public SimpleRobot {
 	Joystick leftStick, rightStick;
 	Jaguar driveLeft, driveRight, endGameLeftFront, endGameRightFront,
-			endGameLeftBack, endGameRightBack, shooterFront, shooterBack;
+			endGameLeftBack, endGameRightBack;
 	RobotDrive drive;
 	Relay light;
 	Servo pusher1, pusher2, feederLock;
@@ -24,7 +24,6 @@ public:
 				//Jaguars
 				driveLeft(1), driveRight(2), endGameLeftFront(3),
 				endGameRightFront(4), endGameLeftBack(5), endGameRightBack(6),
-				shooterFront(7), shooterBack(8),
 				//Drive
 				drive(1, 2),
 				//Light

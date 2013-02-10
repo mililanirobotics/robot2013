@@ -31,8 +31,8 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
-PRJ_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013/2013FinalCode
-WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013
+PRJ_ROOT_DIR := C:/Users/mhsrobotics/Desktop/robot2013/2013FinalCode
+WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/robot2013
 
 
 
@@ -158,7 +158,7 @@ SimpleTemplate_partialImage/$(MODE_DIR)/% : LIBPATH =
 SimpleTemplate_partialImage/$(MODE_DIR)/% : LIBS = 
 SimpleTemplate_partialImage/$(MODE_DIR)/% : OBJ_DIR := SimpleTemplate_partialImage/$(MODE_DIR)
 
-SimpleTemplate_partialImage/$(MODE_DIR)/Objects/2013FinalCode/MyRobot.o : C:/Users/mhsrobotics/Desktop/Robot\ 2013/2013FinalCode/MyRobot.cpp
+SimpleTemplate_partialImage/$(MODE_DIR)/Objects/2013FinalCode/MyRobot.o : C:/Users/mhsrobotics/Desktop/robot2013/2013FinalCode/MyRobot.cpp
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
