@@ -47,7 +47,7 @@ public:
 		{
 			screen->UpdateLCD();
 			count++;
-			HSLImage* imgpointer;		//declares a new hue saturation lum image
+			 HSLImage* imgpointer;		//declares a new hue saturation lum image
 			imgpointer = camera.GetImage();  //grabs an image to initialize that image
 			//imaqCreateImage(IMAQ_IMAGE_U8,) 
 			//imaqCast(NULL, imgpointer, IMAQ_IMAGE_U8, NULL, -1);
@@ -106,7 +106,7 @@ public:
 //			rectangle.top = 0;
 //			rectangle.left = 0;
 //			rectangle.width = 320;
-//			rectangle.height = 120;
+//			rectangle.height = 120; 
 //			imaqAddRectContour(roi,rectangle);
 			
 			static RectangleDescriptor rectangleDescriptor = 
