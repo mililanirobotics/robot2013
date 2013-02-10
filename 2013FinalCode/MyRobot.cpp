@@ -8,13 +8,12 @@
  */
 class RobotDemo : public SimpleRobot {
 	Joystick leftStick, rightStick;
-	Jaguar driveLeft, driveRight, endGameLeftFront, endGameRightFront,
-			endGameLeftBack, endGameRightBack, shooterFront, shooterBack;
+	Victor driveFrontLeft, driveFrontRight, driveRearLeft, driveRearRight, Dumper;
+	Jaguar endGameLeftFront, endGameRightFront, endGameLeftBack, endGameRightBack;
 	RobotDrive drive;
 	Relay light;
-	Servo pusher1, pusher2, feederLock;
+	Servo dumpLock;
 	AnalogChannel potFront, potBack;
-	DigitalInput switchFront, switchBack;
 
 public:
 	RobotDemo(void) :
@@ -22,30 +21,32 @@ public:
 				leftStick(1),
 				rightStick(2),
 				//Jaguars
+//<<<<<<< HEAD
 				driveLeft(1), driveRight(2), endGameLeftFront(3),
 				endGameRightFront(4), endGameLeftBack(5), endGameRightBack(6),
+//=======
+				driveFrontLeft(1), driveFrontRight(2), driveRearLeft(3), driveRearRight(4), endGameLeftFront(5),
+				endGameRightFront(6), endGameLeftBack(7), endGameRightBack(8), Dumper(9),
+//>>>>>>> origin/master
 				//Drive
-				drive(1, 2),
+				drive(1, 2, 3, 4),
 				//Light
+//<<<<<<< HEAD
 				light(2, 4, Relay::kForwardOnly),
+=======
+				light(1, 4, Relay::kForwardOnly),
+				//Servos
+				dumpLock(10),
+>>>>>>> origin/master
 				//Potentiometers
-				potFront(1, 1), potBack(1, 2),
-				//Switches
-				switchFront(1,3) , switchBack(1,4)
+				potFront(1, 1), potBack(1, 2)
 	{
 
 	}
 
-	/**
-	 * Drive left & right motors for 2 seconds then stop
-	 */
-	bool ClawIsClosed()
-	{
-		return true; //REPLACE THIS BEFORE TESTING
-	}
 	void Autonomous(void) 
 	{
-
+		
 	}
 
 	/**
@@ -56,51 +57,51 @@ public:
 		DriverStationLCD *screen = DriverStationLCD::GetInstance();
 		while (IsOperatorControl()) {
 			light.Set(Relay::kOn);
-			drive.TankDrive(leftStick, rightStick);//tank drive for now, but we can change to fit drivers needs.
+			drive.TankDrive(leftStick, rightStick);//Need to change to Mechanum.
 			if (rightStick.GetRawButton(10)) //End game code
 			{ 
 				bool isAligned;
 				//Pyramid allignment
 				while (!isAligned) 
 				{
-					float targetx = 0;
-					float distance = 0;  //TODO: Distance algorithm
-					//TODO: Get x value from NIVision or RoboRealm
-					
-					//This code assumes that center of target is located at 100. (TODO: Get actual middle values and replace 100)
-
+					//Make sure the variable is called Pyramid!
+					float targetx = SmartDashboard::GetNumber("Pyramid");
+					Sleep(5);				
+					//This code assumes that center of target is located at 160 (pixels).					
 					if (targetx < 150) { //+-10 error margin
-						//TODO: Math for the allignment algorithm
+						//TODO: Move left
 					} else if (targetx > 170) {
-						//TODO: Math for the allignment algorithm
+						//TODO: Move right 
 					} else {
 						isAligned = true;
 					}
 				}
-				while (potFront.GetVoltage() < (10/3) || switchFront.Get() < 1) { // 10/3 comes from 5(voltage)/270(degrees total)*180 degrees we need to move
-
+				delete isAligned;
+				
 				//TODO: Tell the driver that the robot is aligned
-				}
+		
 			}
-			
-			//TODO: Find out some way to figure out when the claw is closed - possibly a switch?
-			if (ClawIsClosed())  //PSUEDOCODE - are we going to use a switch or not?
+			if (rightStick.GetRawButton(11))
 			{
 				while (potFront.GetVoltage() < (10/3)) { // 10/3 comes from 5(voltage)/270(degrees total)*180 degrees we need to move
-						
+				//TODO: Change this to the actual turn amounts
+				
 					endGameLeftFront.Set(1);
 					endGameRightFront.Set(1);
 				}
 				endGameLeftFront.Set(0);
-				endGameRightFront.Set(1);
-				while (potBack.GetVoltage() < (10/3) || switchBack.Get() < 1) {
+				endGameRightFront.Set(0);
+				
+				while (potBack.GetVoltage() < (10/3)) {
 					endGameLeftBack.Set(1);
 					endGameRightBack.Set(1);
 				}
 				endGameLeftBack.Set(0);
 				endGameRightBack.Set(0);
+				
+				
 				//TODO: Repeat this code for the number of times we are going to move the arms
-			//}
+				
 			}
 		}
 	

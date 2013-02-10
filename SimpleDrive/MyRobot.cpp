@@ -38,8 +38,8 @@ public:
 		while (IsOperatorControl())
 		{
 			myRobot.TankDrive(leftstick, rightstick);
-			driveleft.Set(1);
-			driveright.Set(-1);
+			//driveleft.Set(1);  //Why are we setting driveleft and driveright to 1 and -1?
+			//driveright.Set(-1);  
 		}
 	}
 	

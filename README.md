@@ -3,4 +3,5 @@ robot2013
 
 Team 2853's FIRST Robotics CRIO code
 
-Currently contains last year's robot code as well as some examples.
+Currently contains 2013's robot code, 2012's robot code, and some examples.
+

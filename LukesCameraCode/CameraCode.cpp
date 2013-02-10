@@ -38,14 +38,14 @@ public:
 		BinaryImage* binImg = image->ThresholdHSL(1, 255, 1, 255, 230, 255); //Need to get threshold parameters from helper
 		binImg->Write("/tmp/thresh.jpg"); //These temp images are for debugging purposes only, and should not be used in the final code.
 		imaqWriteFile(binImg->GetImaqImage(), "/tmp/thresh2.jpg", NULL);  
-		delete binImg;
+		
 		
 		///////////////////////////////////////////////////////
 		//                  Convex Hull                      //
 		///////////////////////////////////////////////////////
 		Image* Convex = imaqCreateImage(IMAQ_IMAGE_U8, 0);
 		imaqConvexHull(Convex, binImg->GetImaqImage(), TRUE);
-		
+		delete binImg;
 		
 		///////////////////////////////////////////////////////
 		//                     Casts                         //

@@ -1,5 +1,5 @@
 #include "WPILib.h"
-#include <math.h>
+
 /**
  * This is a demo program showing the use of the RobotBase class.
  * The SimpleRobot class is the base of a robot application that will automatically call your
@@ -16,7 +16,7 @@ public:
 		myRobot(1, 2, 3, 4),	// these must be initialized in the same order
 		stick(1)		// as they are declared above.
 	{
-
+		myRobot.SetExpiration(0.1);
 	}
 
 	/**
@@ -24,30 +24,32 @@ public:
 	 */
 	void Autonomous(void)
 	{
-	
+		//myRobot.SetSafetyEnabled(false);
+		myRobot.Drive(-0.5, 0.0); 	// drive forwards half speed
+		Wait(2.0); 				//    for 2 seconds
+		myRobot.Drive(0.0, 0.0); 	// stop robot
 	}
 
 	/**
 	 * Runs the motors with arcade steering. 
 	 */
+	/*void RobotDrive::MecanumDrive_Cartesian (float x,  
+										float d,
+										float rotation); */
+	
+	
 	void OperatorControl(void)
+	
 	{
-		DriverStationLCD *screen = DriverStationLCD::GetInstance();
-		float magnitude;
-		float direction;
+		//myRobot.SetSafetyEnabled(true);
+		//myRobot.MecanumDrive_Cartesian( x, y, rotation);
 		while (IsOperatorControl())
 		{
-			magnitude = sqrt(stick.GetX()*stick.GetX() + stick.GetY()*stick.GetY());
-			direction = stick.GetDirectionDegrees()+180;
-			if (magnitude > 1)
-				magnitude = 1;
-			myRobot.MecanumDrive_Polar(stick.GetThrottle(), direction, magnitude); // drive with arcade style (use right stick)
-			//Parameters may be inverted.  Mecanum_Polar(rotation, degrees, magnitude) may be the right passing of parameters
-			screen->PrintfLine(DriverStationLCD::kUser_Line1,"Magnitude: %f", magnitude);
-			screen->PrintfLine(DriverStationLCD::kUser_Line2,"Degrees: %f", direction);	
-			screen->PrintfLine(DriverStationLCD::kUser_Line3,"Rotation: %f", stick.GetThrottle());	// wait for a motor update time
-			screen->UpdateLCD();
+			//myRobot.ArcadeDrive(stick); // drive with arcade style (use right stick)
+			myRobot.MecanumDrive_Cartesian(stick.GetX(), stick.GetY(), stick.GetThrottle());
 			
+		
+			Wait(0.005);				// wait for a motor update time
 		}
 	}
 	
@@ -60,4 +62,3 @@ public:
 };
 
 START_ROBOT_CLASS(RobotDemo);
-

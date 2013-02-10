@@ -243,4 +243,16 @@
             <booleanAttribute key="BuildTargetCentric" value="true"/>
         </mapAttribute>
     </attributes>
+    <buildtargets>
+        <buildtarget buildtool="Linker" name="SimpleTemplate" passed="false" targetname="SimpleTemplate">
+            <contents>
+                <buildtargetreference name="/Servo/SimpleTemplate_partialImage"/>
+            </contents>
+        </buildtarget>
+        <buildtarget buildtool="Partial Image Linker" name="SimpleTemplate_partialImage" passed="true" targetname="SimpleTemplate_partialImage">
+            <contents>
+                <folder name="/Servo" recursive="true"/>
+            </contents>
+        </buildtarget>
+    </buildtargets>
 </wrxml>

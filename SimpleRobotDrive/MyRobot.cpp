@@ -20,7 +20,7 @@ public:
 	RobotDemo(void):
 		//myRobot(1, 2),	// these must be initialized in the same order
 		stick(1),		// as they are declared above.
-		j1(1),j2(2),j3(3),j4(4)
+		j1(5),j2(6),j3(3),j4(4)
 	{
 		//myRobot.SetExpiration(0.1);
 	}
@@ -79,7 +79,7 @@ public:
 			screen->PrintfLine(DriverStationLCD::kUser_Line2,"Mag: %f", mag);	// wait for a motor update time
 			screen->PrintfLine(DriverStationLCD::kUser_Line3,"Throttle: %f", stick.GetThrottle());
 			screen->PrintfLine(DriverStationLCD::kUser_Line5,"J1 %.3f, J2 %.3f", j1.Get(), j2.Get());
-			screen->PrintfLine(DriverStationLCD::kUser_Line5,"J3 %.3f, J4 %.3f", j3.Get(), j4.Get());
+			screen->PrintfLine(DriverStationLCD::kUser_Line6,"J3 %.3f, J4 %.3f", j3.Get(), j4.Get());
 			screen->UpdateLCD();	
 		}
 	}

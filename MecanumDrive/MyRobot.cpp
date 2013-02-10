@@ -8,8 +8,13 @@
  */ 
 class RobotDemo : public SimpleRobot
 {
+	Jaguar fl;
+	Jaguar fr;
+	Jaguar rl;
+	Jaguar rr;
 	RobotDrive myRobot; // robot drive system
-	Joystick stick; // only joystick
+	Joystick stick; // Extreme3DPro
+/*	Joystick stick2; //optional second stick */
 	
 	/* motors pl0x */
 	Jaguar fL, fR, rL, rR;
@@ -65,26 +70,27 @@ public:
 
 	void OperatorControl(void)
 	{
-		wheelFL = 0;
-		wheelFR = 0;
-		wheelBL = 0;
-		wheelBR = 0;	
 		
-		myRobot.SetSafetyEnabled(true);
+		DriverStationLCD *screen = DriverStationLCD::GetInstance();
+		
 		while (IsOperatorControl())
 		{
-			wheelFL = 0;
-			wheelFR = 0;
-			wheelBL = 0;
-			wheelBR = 0;	
-			verticalDrive(stick.GetY());
-			horizontalDrive(stick.GetX());
-			rotationDrive(stick.GetTwist()); 
-		
-			fL.set(wheelFL); //replace with real motor
-			fR.set(wheelFR); //replace with real motor
-			rL.set(wheelBL); //replace with real motor
-			rR.set(wheelBR); //replace with real motor */
+			/* Using the Extreme3DPro Joystick */
+			myRobot.MecanumDrive_Cartesian(stick.GetY(), stick.GetX(), stick.GetTwist(), 0.0);
+			screen->PrintfLine(DriverStationLCD::kUser_Line1,"FL: %.3f, FR: %.3f", fl.Get(), fr.Get());
+			screen->PrintfLine(DriverStationLCD::kUser_Line2,"BL: %.3f, BR: %.3f", rl.Get(), rr.Get());
+			screen->PrintfLine(DriverStationLCD::kUser_Line3,"X: %.3f, Y: %.3f", stick.GetX(), stick.GetY());
+			screen->PrintfLine(DriverStationLCD::kUser_Line4,"y", rr.Get());
+			screen->PrintfLine(DriverStationLCD::kUser_Line5,"B: %f", rr.Get());
+			screen->PrintfLine(DriverStationLCD::kUser_Line6,"Back Right: %f", rr.Get());
+			
+			/* Using two Joysticks */
+// 	 	 	myRobot.MecanumDrive_Cartesian(stick.GetY(), stick.GetX(), stick2.GetX(), 0.0);
+			/* Using an Xbox controller */
+//			myRobot.MecanumDrive_Cartesian(stick.GetY(), stick.GetX(), stick.GetZ(), 0.0);
+
+//			screen->PrintfLine(DriverStationLCD::kUser_Line1("FL: .3f%",wheelFL));
+			
 		}
 	}
 	
