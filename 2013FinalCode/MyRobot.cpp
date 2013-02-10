@@ -21,23 +21,14 @@ public:
 				leftStick(1),
 				rightStick(2),
 				//Jaguars
-//<<<<<<< HEAD
-				driveLeft(1), driveRight(2), endGameLeftFront(3),
-				endGameRightFront(4), endGameLeftBack(5), endGameRightBack(6),
-//=======
 				driveFrontLeft(1), driveFrontRight(2), driveRearLeft(3), driveRearRight(4), endGameLeftFront(5),
 				endGameRightFront(6), endGameLeftBack(7), endGameRightBack(8), Dumper(9),
-//>>>>>>> origin/master
 				//Drive
 				drive(1, 2, 3, 4),
 				//Light
-//<<<<<<< HEAD
-				light(2, 4, Relay::kForwardOnly),
-=======
 				light(1, 4, Relay::kForwardOnly),
 				//Servos
 				dumpLock(10),
->>>>>>> origin/master
 				//Potentiometers
 				potFront(1, 1), potBack(1, 2)
 	{
@@ -46,7 +37,7 @@ public:
 
 	void Autonomous(void) 
 	{
-		
+
 	}
 
 	/**
@@ -54,7 +45,7 @@ public:
 	 */
 	void OperatorControl(void) 
 	{
-		DriverStationLCD *screen = DriverStationLCD::GetInstance();
+	//	DriverStationLCD *screen = DriverStationLCD::GetInstance(); UNUSED
 		while (IsOperatorControl()) {
 			light.Set(Relay::kOn);
 			drive.TankDrive(leftStick, rightStick);//Need to change to Mechanum.
@@ -77,37 +68,37 @@ public:
 					}
 				}
 				delete isAligned;
-				
+
 				//TODO: Tell the driver that the robot is aligned
-		
+
 			}
 			if (rightStick.GetRawButton(11))
 			{
 				while (potFront.GetVoltage() < (10/3)) { // 10/3 comes from 5(voltage)/270(degrees total)*180 degrees we need to move
 				//TODO: Change this to the actual turn amounts
-				
+
 					endGameLeftFront.Set(1);
 					endGameRightFront.Set(1);
 				}
 				endGameLeftFront.Set(0);
 				endGameRightFront.Set(0);
-				
+
 				while (potBack.GetVoltage() < (10/3)) {
 					endGameLeftBack.Set(1);
 					endGameRightBack.Set(1);
 				}
 				endGameLeftBack.Set(0);
 				endGameRightBack.Set(0);
-				
-				
+
+
 				//TODO: Repeat this code for the number of times we are going to move the arms
-				
+
 			}
 		}
-	
-		
+
+
 	}
-	
+
 };
 
 START_ROBOT_CLASS(RobotDemo);

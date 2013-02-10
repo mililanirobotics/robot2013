@@ -8,13 +8,20 @@
  */ 
 class RobotDemo : public SimpleRobot
 {
-	RobotDrive myRobot; // robot drive system
-	Joystick stick; // only joystick
+	Joystick leftStick, rightStick;
+	Victor driveFrontLeft, driveFrontRight, driveRearLeft, driveRearRight, Dumper;
+	Jaguar endGameLeftFront, endGameRightFront, endGameLeftBack, endGameRightBack;
+	//RobotDrive drive;
+	Relay light;
+	Servo dumpLock;
+	//AnalogChannel potFront, potBack;
 
 public:
 	RobotDemo(void):
-		myRobot(1, 2, 3, 4),	// these must be initialized in the same order
-		stick(1)		// as they are declared above.
+		leftStick (1), rightStick(2),
+		driveFrontLeft(1), driveRearLeft(2), driveFrontRight(3), driveRearRight(4),
+		endGameLeftFront(5),endGameRightFront(6),endGameLeftBack(7),endGameRightBack(8),
+		light(1), dumpLock(9)
 	{
 		myRobot.SetExpiration(0.1);
 	}
