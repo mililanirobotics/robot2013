@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <?fileVersion 4.0.0?>
 
 <cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
@@ -17,6 +17,11 @@
 <pathentry kind="out" path=""/>
 <pathentry kind="con" path="com.windriver.ide.core.build.model.WR_USERDEFINED_CONTAINER"/>
 <pathentry kind="con" path="org.eclipse.cdt.make.core.DISCOVERED_SCANNER_INFO"/>
+</storageModule>
+
+<storageModule moduleId="userdefinedContainer">
+<indexAllFiles value="true"/>
+<initialized value="true"/>
 </storageModule>
 <storageModule moduleId="scannerConfiguration">
 <autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.windriver.ide.staticanalysis.core.WRStandardMakePerFileProfile"/>
@@ -110,10 +115,6 @@
 <parser enabled="true"/>
 </scannerInfoProvider>
 </profile>
-</storageModule>
-<storageModule moduleId="userdefinedContainer">
-<indexAllFiles value="true"/>
-<initialized value="true"/>
 </storageModule>
 </cconfiguration>
 </storageModule>
