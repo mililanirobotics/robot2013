@@ -10,11 +10,12 @@ class RobotDemo : public SimpleRobot
 { // robot drive system
 	Victor jFL, jRL, jFR, jRR;
 	Joystick stick; // only joystick
-	//DigitalInput s1, s2;
+	DigitalInput s1;
 public:
 	RobotDemo(void):
 		jFL(5), jRL(6), jFR(3), jRR(4),// these must be initialized in the same order
 		stick(1)		// as they are declared above.
+		,s1(1)
 		//,s1(2), s2(3)
 		{
 
@@ -39,6 +40,7 @@ public:
 	}
 	void OperatorControl(void)
 	{
+		bool kill = false;
 		DriverStationLCD *screen = DriverStationLCD::GetInstance();
 		while (IsOperatorControl())
 		{
@@ -105,13 +107,19 @@ public:
 			jFR.Set(-front_right);
 			jRL.Set(rear_left);
 			jRR.Set(-rear_right);
-			/*while(s2.Get() == 0 && s1.Get() == 0)
+			if (s1.Get() == 1){
+				kill = true;
+			}
+			if (stick.GetRawButton(9)){
+				kill = false;
+			}
+			while(kill)
 			{
 				jFL.Set(0);
 				jFR.Set(0);
 				jRL.Set(0);
 				jRR.Set(0);
-			}*/
+			}
 			//adjusted for polarity changes
 			screen->UpdateLCD();
 		}
