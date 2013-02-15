@@ -31,8 +31,8 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
-PRJ_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013/CameraTracking
 WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013
+PRJ_ROOT_DIR := $(WS_ROOT_DIR)/CameraTracking
 
 
 
@@ -55,6 +55,8 @@ LIBS =
 IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
 
 IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
+
+IDE_DEFINES = 
 
 
 
@@ -100,6 +102,7 @@ CameraTracking/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -O2 -fstrength-reduce -fno
 endif
 CameraTracking/$(MODE_DIR)/% : IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
 CameraTracking/$(MODE_DIR)/% : IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
+CameraTracking/$(MODE_DIR)/% : IDE_DEFINES = 
 CameraTracking/$(MODE_DIR)/% : PROJECT_TYPE = DKM
 CameraTracking/$(MODE_DIR)/% : DEFINES = 
 CameraTracking/$(MODE_DIR)/% : EXPAND_DBG = 0
@@ -113,7 +116,7 @@ CameraTracking/$(MODE_DIR)/% : LIBPATH =
 CameraTracking/$(MODE_DIR)/% : LIBS = 
 CameraTracking/$(MODE_DIR)/% : OBJ_DIR := CameraTracking/$(MODE_DIR)
 
-CameraTracking/$(MODE_DIR)/Objects/CameraTracking/CameraTrack.o : C:/Users/mhsrobotics/Desktop/Robot\ 2013/CameraTracking/CameraTrack.cpp
+CameraTracking/$(MODE_DIR)/Objects/CameraTracking/CameraTrack.o : $(PRJ_ROOT_DIR)/CameraTrack.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
@@ -128,6 +131,8 @@ _clean :: CameraTracking/$(MODE_DIR)/CameraTracking_clean
 
 CameraTracking/$(MODE_DIR)/CameraTracking_clean : 
 	$(TRACE_FLAG)if [ -d "CameraTracking" ]; then cd "CameraTracking"; rm -rf $(MODE_DIR); fi
+
+force : 
 
 DEP_FILES := CameraTracking/$(MODE_DIR)/Objects/CameraTracking/CameraTrack.d
 -include $(DEP_FILES)

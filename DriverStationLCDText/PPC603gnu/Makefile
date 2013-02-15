@@ -31,8 +31,8 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
-PRJ_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013/DriverStationLCDText
 WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013
+PRJ_ROOT_DIR := $(WS_ROOT_DIR)/DriverStationLCDText
 
 
 
@@ -55,6 +55,8 @@ LIBS =
 IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
 
 IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
+
+IDE_DEFINES = 
 
 
 
@@ -101,6 +103,7 @@ DriverStationLCDText/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -O2 -fstrength-reduc
 endif
 DriverStationLCDText/$(MODE_DIR)/% : IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
 DriverStationLCDText/$(MODE_DIR)/% : IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
+DriverStationLCDText/$(MODE_DIR)/% : IDE_DEFINES = 
 DriverStationLCDText/$(MODE_DIR)/% : PROJECT_TYPE = DKM
 DriverStationLCDText/$(MODE_DIR)/% : DEFINES = 
 DriverStationLCDText/$(MODE_DIR)/% : EXPAND_DBG = 0
@@ -145,6 +148,7 @@ DriverStationLCDText_partialImage/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -O2 -fs
 endif
 DriverStationLCDText_partialImage/$(MODE_DIR)/% : IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip 
 DriverStationLCDText_partialImage/$(MODE_DIR)/% : IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
+DriverStationLCDText_partialImage/$(MODE_DIR)/% : IDE_DEFINES = 
 DriverStationLCDText_partialImage/$(MODE_DIR)/% : PROJECT_TYPE = DKM
 DriverStationLCDText_partialImage/$(MODE_DIR)/% : DEFINES = 
 DriverStationLCDText_partialImage/$(MODE_DIR)/% : EXPAND_DBG = 0
@@ -158,7 +162,7 @@ DriverStationLCDText_partialImage/$(MODE_DIR)/% : LIBPATH =
 DriverStationLCDText_partialImage/$(MODE_DIR)/% : LIBS = 
 DriverStationLCDText_partialImage/$(MODE_DIR)/% : OBJ_DIR := DriverStationLCDText_partialImage/$(MODE_DIR)
 
-DriverStationLCDText_partialImage/$(MODE_DIR)/Objects/DriverStationLCDText/DriverStationLCDTextExample.o : C:/Users/mhsrobotics/Desktop/Robot\ 2013/DriverStationLCDText/DriverStationLCDTextExample.cpp
+DriverStationLCDText_partialImage/$(MODE_DIR)/Objects/DriverStationLCDText/DriverStationLCDTextExample.o : $(PRJ_ROOT_DIR)/DriverStationLCDTextExample.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
@@ -173,6 +177,8 @@ _clean :: DriverStationLCDText_partialImage/$(MODE_DIR)/DriverStationLCDText_par
 
 DriverStationLCDText_partialImage/$(MODE_DIR)/DriverStationLCDText_partialImage_clean : 
 	$(TRACE_FLAG)if [ -d "DriverStationLCDText_partialImage" ]; then cd "DriverStationLCDText_partialImage"; rm -rf $(MODE_DIR); fi
+
+force : 
 
 DEP_FILES := DriverStationLCDText_partialImage/$(MODE_DIR)/Objects/DriverStationLCDText/DriverStationLCDTextExample.d
 -include $(DEP_FILES)

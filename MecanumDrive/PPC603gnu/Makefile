@@ -31,7 +31,7 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
-WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/robot2013
+WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013
 PRJ_ROOT_DIR := $(WS_ROOT_DIR)/MecanumDrive
 
 

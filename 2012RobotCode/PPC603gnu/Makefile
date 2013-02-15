@@ -31,8 +31,8 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
-PRJ_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013/2012RobotCode
 WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013
+PRJ_ROOT_DIR := $(WS_ROOT_DIR)/2012RobotCode
 
 
 
@@ -55,6 +55,8 @@ LIBS =
 IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip -I. 
 
 IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
+
+IDE_DEFINES = 
 
 
 
@@ -100,6 +102,7 @@ ButtonTest/$(MODE_DIR)/% : DEBUGFLAGS_Assembler = -O2 -fstrength-reduce -fno-bui
 endif
 ButtonTest/$(MODE_DIR)/% : IDE_INCLUDES = -I$(WIND_BASE)/target/h -I$(WIND_BASE)/target/h/WPILib -I$(WIND_BASE)/target/h/wrn/coreip -I. 
 ButtonTest/$(MODE_DIR)/% : IDE_LIBRARIES = $(WIND_BASE)/target/lib/WPILib.a 
+ButtonTest/$(MODE_DIR)/% : IDE_DEFINES = 
 ButtonTest/$(MODE_DIR)/% : PROJECT_TYPE = DKM
 ButtonTest/$(MODE_DIR)/% : DEFINES = 
 ButtonTest/$(MODE_DIR)/% : EXPAND_DBG = 0
@@ -113,11 +116,7 @@ ButtonTest/$(MODE_DIR)/% : LIBPATH =
 ButtonTest/$(MODE_DIR)/% : LIBS = 
 ButtonTest/$(MODE_DIR)/% : OBJ_DIR := ButtonTest/$(MODE_DIR)
 
-ButtonTest/$(MODE_DIR)/Objects/ButtonTest/PPC603gnu/ButtonTest/Debug/ctdt.o : C:/Users/mhsrobotics/Desktop/Robot\ 2013/ButtonTest/PPC603gnu/ButtonTest/Debug/ctdt.c
-	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C-Compiler) $(CC_ARCH_SPEC) -ansi  -Wall  -MD -MP -mlongcall $(ADDED_CFLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
-
-
-OBJECTS_ButtonTest = ButtonTest/$(MODE_DIR)/Objects/ButtonTest/PPC603gnu/ButtonTest/Debug/ctdt.o
+OBJECTS_ButtonTest =
 
 ButtonTest/$(MODE_DIR)/ButtonTest.out : $(OBJECTS_ButtonTest)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@";rm -f "$@";nmppc $(OBJECTS_ButtonTest) $(IDE_LIBRARIES) | tclsh $(WIND_BASE)/host/resource/hutils/tcl/munch.tcl -c ppc > $(OBJ_DIR)/ctdt.c; $(TOOL_PATH)ccppc $(DEBUGFLAGS_Linker) $(CC_ARCH_SPEC) -fdollars-in-identifiers -Wall $(ADDED_CFLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES)  -o $(OBJ_DIR)/ctdt.o -c $(OBJ_DIR)/ctdt.c; $(TOOL_PATH)ccppc -r -nostdlib -Wl,-X -T $(WIND_BASE)/target/h/tool/gnu/ldscripts/link.OUT -o "$@" $(OBJ_DIR)/ctdt.o $(OBJECTS_ButtonTest) $(IDE_LIBRARIES) $(LIBPATH) $(LIBS)  $(ADDED_LIBPATH) $(ADDED_LIBS) && if [ "$(EXPAND_DBG)" = "1" ]; then plink "$@";fi
@@ -129,8 +128,7 @@ _clean :: ButtonTest/$(MODE_DIR)/ButtonTest_clean
 ButtonTest/$(MODE_DIR)/ButtonTest_clean : 
 	$(TRACE_FLAG)if [ -d "ButtonTest" ]; then cd "ButtonTest"; rm -rf $(MODE_DIR); fi
 
-DEP_FILES := ButtonTest/$(MODE_DIR)/Objects/ButtonTest/PPC603gnu/ButtonTest/Debug/ctdt.d
--include $(DEP_FILES)
+force : 
 
 
 

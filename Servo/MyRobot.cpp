@@ -1,5 +1,4 @@
 #include "WPILib.h"
-#include "NetworkTables/NetworkTable.h"
 
 /**
  * This is a demo program showing the use of the RobotBase class.
@@ -7,16 +6,17 @@
  * Autonomous and OperatorControl methods at the right time as controlled by the switches on
  * the driver station or the field controls.
  */ 
-using namespace std;
 class RobotDemo : public SimpleRobot
 {
 	Joystick stick;
-	Servo lock;
+	Relay spike;
+	
 	//Servo door;
 public:
-	NetworkTable *netTable;
+	//NetworkTable *netTable;
 	RobotDemo(void):
-	stick(1),lock(1)//,door(1)
+	stick(1),
+	spike(1, Relay::kForwardOnly)//,door(1)
 	{
 
 	}
@@ -35,14 +35,13 @@ public:
 	void OperatorControl(void)
 	{
 	//	bool closed = true;
-		bool locked = true;
-		while (IsOperatorControl()){
-			if (stick.GetRawButton(1)){
-					lock.Set(0);
+		while (IsOperatorControl())
+		{
+			if (stick.GetRawButton(1))
+			{
+				spike.Set(Relay::kOn);
 			}
-			if (stick.GetRawButton(2)){
-					lock.Set(1);
-			}
+		}
 //			if (stick.GetRawButton(2)){
 //				if (closed){
 //					door.Set(0);
@@ -53,7 +52,6 @@ public:
 //					closed = true;
 //				}
 //			}
-		}
 	}
 	
 	/**

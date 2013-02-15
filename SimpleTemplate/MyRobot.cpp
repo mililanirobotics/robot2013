@@ -8,33 +8,24 @@
  */ 
 class RobotDemo : public SimpleRobot
 {
-	Joystick leftStick, rightStick;
-	Victor driveFrontLeft, driveFrontRight, driveRearLeft, driveRearRight, Dumper;
-	Jaguar endGameLeftFront, endGameRightFront, endGameLeftBack, endGameRightBack;
-	//RobotDrive drive;
-	Relay light;
-	Servo dumpLock;
-	//AnalogChannel potFront, potBack;
+	DigitalInput s1, s2, s3, s4
 
 public:
 	RobotDemo(void):
-		leftStick (1), rightStick(2),
-		driveFrontLeft(1), driveRearLeft(2), driveFrontRight(3), driveRearRight(4),
-		endGameLeftFront(5),endGameRightFront(6),endGameLeftBack(7),endGameRightBack(8),
-		light(1), dumpLock(9)
-	{
-		myRobot.SetExpiration(0.1);
-	}
 
+		jFL(5), jRL(6), jFR(3), jRR(4),
+		stick(1),
+		spike(2, Relay::kForwardOnly) 
+	{
+	}
 	/**
 	 * Drive left & right motors for 2 seconds then stop
 	 */
 	void Autonomous(void)
 	{
 		//myRobot.SetSafetyEnabled(false);
-		myRobot.Drive(-0.5, 0.0); 	// drive forwards half speed
-		Wait(2.0); 				//    for 2 seconds
-		myRobot.Drive(0.0, 0.0); 	// stop robot
+		//myRobot.Drive(-0.5, 0.0); 	// drive forwards half speed				//    for 2 seconds
+		//myRobot.Drive(0.0, 0.0); 	// stop robot
 	}
 
 	/**
@@ -53,10 +44,10 @@ public:
 		while (IsOperatorControl())
 		{
 			//myRobot.ArcadeDrive(stick); // drive with arcade style (use right stick)
-			myRobot.MecanumDrive_Cartesian(stick.GetX(), stick.GetY(), stick.GetThrottle());
-			
-		
-			Wait(0.005);				// wait for a motor update time
+			if(stick.GetRawButton(1))
+				vic.Set(stick.GetY());
+			else
+				vic.Set(0);// wait for a motor update time
 		}
 	}
 	
