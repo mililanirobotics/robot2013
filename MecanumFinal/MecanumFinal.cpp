@@ -10,10 +10,12 @@ class RobotDemo : public SimpleRobot
 { // robot drive system
 	Victor jFL, jRL, jFR, jRR;
 	Joystick stick; // only joystick
+	//DigitalInput s1, s2;
 public:
 	RobotDemo(void):
 		jFL(5), jRL(6), jFR(3), jRR(4),// these must be initialized in the same order
 		stick(1)		// as they are declared above.
+		//,s1(2), s2(3)
 		{
 
 		}
@@ -38,12 +40,22 @@ public:
 	void OperatorControl(void)
 	{
 		DriverStationLCD *screen = DriverStationLCD::GetInstance();
-		bool capture = false;
 		while (IsOperatorControl())
 		{
+			//Extreme 3D Pro Settings
 			float forward   = -stick.GetY();  // push joystick forward to go forward 
 			float right     = -stick.GetX();  // push joystick to the right to strafe right 
 			float clockwise =  stick.GetThrottle();  // twist joystick clockwise turn clockwise
+			
+			// Logitech settings
+//			float forward = -stick.GetY();
+//			float right = -stick.GetX();
+//			float clockwise = stick.GetThrottle();
+			if (absolute(stick.GetThrottle()) < 0.15)
+			{
+				clockwise = 0;
+			}
+			
 			if (absolute(stick.GetX()) < .3)
 				right = 0;
 			else if(absolute(stick.GetX()) < .9)
@@ -59,29 +71,13 @@ public:
 			{
 				forward = 0;
 			}
-			if (stick.GetRawButton(2)){  //Button 2 triggers left only mode
-					forward = 0;
+			if (absolute(stick.GetThrottle()) < 0.15)
+			{
+				clockwise = 0;
 			}
 			if (!stick.GetRawButton(1))
 			{
 				clockwise = 0;
-			}
-			if (stick.GetRawButton(3)){
-				right = -0.8;
-				forward = 0;
-			}
-			if (stick.GetRawButton(4)){
-				right = 0.8;
-				forward = 0;
-			}
-			if (stick.GetRawButton(8) && capture){
-				printf("FL = %.3f RL = %.3f FR = %.3f FR = %.3f \n", jFL.Get(), jRL.Get(), jFR.Get(), jRR.Get());
-				printf("Forward = %.3f  Right = %.3f ", forward, right);
-				printf("Clockwise = %.3f \n", clockwise);
-				capture = false;
-			}
-			if (stick.GetRawButton(12)){
-				capture = true;
 			}
 			float front_left  = forward - clockwise + right; 
 			float front_right = forward + clockwise - right; 
@@ -109,13 +105,14 @@ public:
 			jFR.Set(-front_right);
 			jRL.Set(rear_left);
 			jRR.Set(-rear_right);
+			/*while(s2.Get() == 0 && s1.Get() == 0)
+			{
+				jFL.Set(0);
+				jFR.Set(0);
+				jRL.Set(0);
+				jRR.Set(0);
+			}*/
 			//adjusted for polarity changes
-			screen->PrintfLine(DriverStationLCD::kUser_Line1,"FL %.3f, RL %.3f", front_left, rear_left);
-			screen->PrintfLine(DriverStationLCD::kUser_Line2,"FR %.3f, RR %.3f", front_right, rear_right);
-			screen->PrintfLine(DriverStationLCD::kUser_Line3,"X %.3f, Y %.3f", stick.GetX(), stick.GetY());
-			screen->PrintfLine(DriverStationLCD::kUser_Line4,"Throttle: %.3f", stick.GetThrottle());
-			screen->PrintfLine(DriverStationLCD::kUser_Line5,"J1 %.3f, J2 %.3f", jFL.Get(), jRL.Get());
-			screen->PrintfLine(DriverStationLCD::kUser_Line6,"J3 %.3f, J4 %.3f", jFR.Get(), jRR.Get());
 			screen->UpdateLCD();
 		}
 	}
