@@ -352,14 +352,15 @@ public:
 						}
 						else if(climb4)
 						{
-							gArm1.Reset();
-							while (!(dFT.Get() == 1) && !(dBK.Get() == 1) && gArm1.GetAngle() < 180 && !stopClimb) {
-								endGameLeftBack.Set(1);
-								endGameRightBack.Set(1);
+							gArm2.Reset();
+							while (!(dFT.Get() == 1) && !(dBK.Get() == 1) && gArm2.GetAngle() < 30 && !stopClimb) {
+								endGameLeftFront.Set(1);
+								endGameRightFront.Set(1);
 							}
-							endGameLeftBack.Set(0);
-							endGameRightBack.Set(0);
+							endGameLeftFront.Set(0);
+							endGameRightFront.Set(0);
 							readyToDump = true;
+							gArm2.Reset();
 						}
 						else if(climb3)
 						{
@@ -370,6 +371,13 @@ public:
 							}
 							endGameLeftBack.Set(0);
 							endGameRightBack.Set(0);
+							gArm2.Reset();
+							while (!(dFT.Get() == 1) && !(dBK.Get() == 1) && gArm2.GetAngle() < 180 && !stopClimb) {
+								endGameLeftBack.Set(1);
+								endGameRightBack.Set(1);
+							}
+							endGameLeftFront.Set(0);
+							endGameRightFront.Set(0);
 							climb4 = true;
 						}
 						else if(climb2)
@@ -381,6 +389,13 @@ public:
 							}	
 							endGameLeftFront.Set(0);
 							endGameRightFront.Set(0);
+							gArm1.Reset();
+							while (!(dFT.Get() == 1) && !(dBK.Get() == 1) && gArm1.GetAngle() < 180 && !stopClimb) {
+								endGameLeftBack.Set(1);
+								endGameRightBack.Set(1);
+							}
+							endGameLeftBack.Set(0);
+							endGameRightBack.Set(0);
 							climb3 = true;
 						}
 						else if(climb1)
@@ -392,6 +407,13 @@ public:
 							}
 							endGameLeftBack.Set(0);
 							endGameRightBack.Set(0);
+							gArm2.Reset();
+							while (!(dFT.Get() == 1) && !(dBK.Get() == 1) && gArm2.GetAngle() < 180 && !stopClimb) {
+								endGameLeftBack.Set(1);
+								endGameRightBack.Set(1);
+							}
+							endGameLeftFront.Set(0);
+							endGameRightFront.Set(0);
 							climb2 = true;
 						}
 						else if(latchedOn)
