@@ -110,28 +110,28 @@ public:
 			//				clockwise = 0;
 			//			}
 
-			//			if (stick.GetRawButton(9)) {
-			//				if (angle == 0) {
-			//				} else if ((angle > 86) && angle < 94) //if pixels are perfect, move forward
-			//				{
-			//					screen->PrintfLine(DriverStationLCD::kUser_Line5,
-			//							"PERFECTION!");
-			//					//forward = 0.2;
-			//				} else if (angle < 70)//if pixels are too far left, rotate left
-			//				{
-			//					right = 0.9;
-			//				} else if (angle > 110)//if pixels are too far right, rotate right
-			//				{
-			//					right = -0.9;
-			//				} else if (angle > 94 && angle < 110) //if pixels are small kine left, rotate small kine left
-			//				{
-			//					right = -0.7;
-			//				} else if (angle > 70 && angle < 86) //if pixels are small kine right, rotate small kine right
-			//				{
-			//					right = 0.7;
-			//				} else {
-			//				}
-			//			}
+//						if (stick.GetRawButton(9)) {
+//							if (angle == 0) {
+//							} else if ((angle > 86) && angle < 94) //if pixels are perfect, move forward
+//							{
+//								screen->PrintfLine(DriverStationLCD::kUser_Line5,
+//										"PERFECTION!");
+//								//forward = 0.2;
+//							} else if (angle < 70)//if pixels are too far left, rotate left
+//							{
+//								right = 0.9;
+//							} else if (angle > 110)//if pixels are too far right, rotate right
+//							{
+//								right = -0.9;
+//							} else if (angle > 94 && angle < 110) //if pixels are small kine left, rotate small kine left
+//							{
+//								right = -0.7;
+//							} else if (angle > 70 && angle < 86) //if pixels are small kine right, rotate small kine right
+//							{
+//								right = 0.7;
+//							} else {
+//							}
+//						}
 
 			float theta = (mod(gyro.GetAngle() + 360, 90));
 			if (stick.GetRawButton(12)) {
@@ -213,6 +213,7 @@ public:
 				jRL.Set(rear_left);
 				jRR.Set(-rear_right);
 				screen->UpdateLCD();
+				
 
 			}
 		}
