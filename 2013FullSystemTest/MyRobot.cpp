@@ -22,8 +22,8 @@ public:
 		stick(1),
 				stick2(2),
 				//Jaguars
-				driveFrontLeft(1), driveRearLeft(2), driveFrontRight(3),
-				driveRearRight(4), endGameLeftFront(5), endGameLeftBack(6),
+				driveFrontLeft(3), driveRearLeft(4), driveFrontRight(1),
+				driveRearRight(2), endGameLeftFront(5), endGameLeftBack(6),
 				endGameRightFront(7), endGameRightBack(8), dumper(9),
 				//Light
 				light(1, 4, Relay::kForwardOnly),
@@ -102,7 +102,139 @@ public:
 	 float d,
 	 float rotation); */
 
-	void OperatorControl(void) {
+	void OperatorControl(void)
+	{
+		while (IsOperatorControl())
+		{
+#if 0 // dumplock
+			if (stick.GetRawButton(1))
+						{
+							//dumper.Set(-0.3);  // 
+							dumpLock.Set(0.5);
+						}
+						
+			
+			 if (stick.GetRawButton(2))
+							
+					
+						{
+							//dumper.Set(0);
+							
+						dumpLock.Set(0);
+												
+						}
+#else
+#if 0
+			 if (stick.GetRawButton(1))
+			 						{
+			 							dumper.Set(-0.3);  // 
+			 							
+			 						}
+			 						
+			 			
+			 else if (stick.GetRawButton(2))
+			 							
+			 					
+			 						{
+			 							dumper.Set(0.3);
+			 							
+			 					
+			 												
+			 						}
+			 else
+			 {
+				 dumper.Set(0);
+			 }
+#endif
+#endif
+
+			if (stick.GetRawButton(1))
+			{
+				endGameRightFront.Set(-0.3);  // 7 down
+			}
+			else if (stick.GetRawButton(2))
+						{
+				endGameRightBack.Set(-0.3);  // 8 down
+						}
+
+			else if (stick.GetRawButton(5))
+			{
+				endGameRightFront.Set(0.3);  // 7 up
+			}
+			else if (stick.GetRawButton(6))
+						{
+				endGameRightBack.Set(0.3);  // 8 up
+						}
+			
+			else if (stick.GetRawButton(3))
+						{
+				endGameLeftFront.Set(-0.5);  // 5  down
+						}
+			else if (stick.GetRawButton(4))
+						{
+				endGameLeftBack.Set(-0.5); // 6  down
+						}
+			
+			else if (stick.GetRawButton(7))
+						{
+				endGameLeftFront.Set(0.5);  // 5 up
+						}
+			else if (stick.GetRawButton(8))
+						{
+				endGameLeftBack.Set(0.5); // 6 up
+						}
+			else
+			{
+				endGameRightFront.Set(0);
+				endGameRightBack.Set(0);
+				endGameLeftFront.Set(0);
+				endGameLeftBack.Set(0);
+			}
+			
+			
+			if (stick.GetRawButton(9))
+									{
+				driveFrontLeft.Set(0.5); // 3
+									}
+						else
+						{
+							driveFrontLeft.Set(0);
+						}
+			
+			
+			if (stick.GetRawButton(11))
+									{
+				driveRearLeft.Set(0.5); // 4 
+									}
+						else
+						{
+							driveRearLeft.Set(0);
+						}
+			
+			
+			
+			if (stick.GetRawButton(10))
+									{
+				driveFrontRight.Set(0.5); // 1  backwar
+									}
+						else
+						{
+							driveFrontRight.Set(0);
+						}
+			
+			
+			
+			if (stick.GetRawButton(12))
+									{
+				driveRearRight.Set(0.5); // 2 back
+									}
+						else
+						{
+							driveRearRight.Set(0);
+						}
+			
+		}
+#if 0
 		bool calibrate;
 		//bool kill = false;
 		DriverStationLCD *screen = DriverStationLCD::GetInstance();
@@ -181,6 +313,7 @@ public:
 			}
 			MecanumDrive(forward, right, clockwise);
 		}
+#endif
 	}
 
 	/**
