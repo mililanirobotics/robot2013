@@ -25,15 +25,12 @@ public:
 	{
 		DriverStationLCD *screen = DriverStationLCD::GetInstance();
 		gyro.Reset();
-		gyro.SetSensitivity(1);
 		while (IsOperatorControl())
 		{
 			float angle = 0.0;
 			angle = gyro.GetAngle();
-			angle = (int)angle;
 			screen->PrintfLine(DriverStationLCD::kUser_Line1,"Angle %f",angle );
 			screen->PrintfLine(DriverStationLCD::kUser_Line3,"Nosu ar orothrim");
-			Wait(1);
 			screen->UpdateLCD();// wait for a motor update time
 		}
 	}

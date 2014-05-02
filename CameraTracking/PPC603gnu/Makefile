@@ -31,7 +31,11 @@ else
 MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
+<<<<<<< HEAD
 WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/robot2013
+=======
+WS_ROOT_DIR := C:/Users/mhsrobotics/Desktop/Robot\ 2013
+>>>>>>> 47888cacb9a875a45c5df184ba97d356c6512600
 PRJ_ROOT_DIR := $(WS_ROOT_DIR)/CameraTracking
 
 

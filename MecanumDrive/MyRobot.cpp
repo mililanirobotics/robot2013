@@ -16,22 +16,52 @@ class RobotDemo : public SimpleRobot
 	Joystick stick; // Extreme3DPro
 /*	Joystick stick2; //optional second stick */
 	
+	/* motors pl0x */
+	Jaguar fL, fR, rL, rR;
+	
+	float wheelFL;
+	float wheelFR;
+	float wheelBL;
+	float wheelBR;	
 
 public:
 	RobotDemo(void):
-
-	/*	stick2(2), */
-		fl(1),
-		fr(2),
-		rl(3),
-		rr(4),
-		myRobot(fl, rl, fr, rr),	// these must be initialized in the same order
+		
+		/* motors pl0x */
+		
+		myRobot(1, 2, 3, 4),
+		fL(1), fR(2), rL(3), rR(4),// these must be initialized in the same order
 		stick(1)		// as they are declared above.
 	{
 		//myRobot.SetExpiration(0.1);
 	}
 
 	
+	void verticalDrive (float speed)
+	{
+		wheelFL += speed;
+		wheelFR += speed;
+		wheelBL += speed;
+		wheelBR += speed;
+	}
+	void horizontalDrive (float speed)
+	{
+		wheelFL -= speed;
+		wheelFR += speed;
+		wheelBL += speed;
+		wheelBR -= speed;
+	}
+	void rotationDrive (float speed)
+	{
+		wheelFL += speed;
+		wheelFR -= speed;
+		wheelBL += speed;
+		wheelBR -= speed;
+	}
+	
+	/**
+	 * Drive left & right motors for 2 seconds then stop
+	 */
 	void Autonomous(void)
 	{
 

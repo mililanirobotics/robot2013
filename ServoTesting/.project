@@ -3,7 +3,6 @@
 	<name>ServoTesting</name>
 	<comment></comment>
 	<projects>
-		<project>PracticeMotor</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
